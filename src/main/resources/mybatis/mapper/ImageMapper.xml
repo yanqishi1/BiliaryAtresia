@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.biliaryatresia.mapper.ImageMapper">
     <resultMap type="com.biliaryatresia.entity.Image" id="ImageMap">
-        <result property="imgId" column="img_id" jdbcType="INT"/>
-        <result property="pId" column="p_id" jdbcType="INT"/>
-        <result property="imgDate" column="img_date" jdbcType="DATETIME"/>
+        <result property="imgId" column="img_id" jdbcType="INTEGER"/>
+        <result property="pId" column="p_id" jdbcType="INTEGER"/>
+        <result property="imgDate" column="img_date" javaType="java.util.Date" jdbcType="DATE"/>
         <result property="imgDir" column="img_dir" jdbcType="VARCHAR"/>
         <result property="detectResult" column="detect_result" jdbcType="VARCHAR"/>
-        <result property="docResult" column="doc_result" jdbcType="INT"/>
-        <result property="docId" column="doc_id" jdbcType="INT"/>
+        <result property="docResult" column="doc_result" jdbcType="INTEGER"/>
+        <result property="docId" column="doc_id" jdbcType="INTEGER"/>
         <result property="imgColor" column="img_color" jdbcType="VARCHAR"/>
     </resultMap>
 

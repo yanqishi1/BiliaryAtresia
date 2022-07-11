@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.biliaryatresia.mapper.FeeMapper">
     <resultMap type="com.biliaryatresia.entity.Fee" id="FeeMap">
-        <result property="fId" column="f_id" jdbcType="INT"/>
+        <result property="fId" column="f_id" jdbcType="INTEGER"/>
         <result property="fNum" column="f_num" jdbcType="DECIMAL"/>
         <result property="pId" column="p_id" jdbcType="DECIMAL"/>
-        <result property="fDate" column="f_date" jdbcType="DATETIME"/>
+        <result property="fDate" column="f_date" javaType="java.util.Date" jdbcType="DATE"/>
         <result property="fPay" column="f_pay" jdbcType="VARCHAR"/>
         <result property="fPayAccount" column="f_pay_account" jdbcType="VARCHAR"/>
-        <result property="rId" column="r_id" jdbcType="INT"/>
+        <result property="rId" column="r_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <!-- 通过ID查询单条数据 -->

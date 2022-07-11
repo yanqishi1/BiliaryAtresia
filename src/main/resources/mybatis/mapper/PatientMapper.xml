@@ -1,8 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biliaryatresia.mapper.PatientMapper">
+    <resultMap type="com.biliaryatresia.entity.Patient" id="PatientMap">
+        <result property="pId" column="p_id" jdbcType="INTEGER"/>
+        <result property="pName" column="p_name" jdbcType="VARCHAR"/>
+        <result property="pPassword" column="p_password" jdbcType="VARCHAR"/>
+        <result property="pTel" column="p_tel" jdbcType="VARCHAR"/>
+        <result property="pDate" column="p_date" javaType="java.util.Date" jdbcType="DATE"/>
+        <result property="pWechat" column="p_wechat" jdbcType="VARCHAR"/>
+        <result property="pBirthday" column="p_birthday" jdbcType="VARCHAR"/>
+        <result property="pGender" column="p_gender" jdbcType="VARCHAR"/>
+        <result property="pWeight" column="p_weight" jdbcType="DECIMAL"/>
+        <result property="pEat" column="p_eat" jdbcType="VARCHAR"/>
+    </resultMap>
 
-<mapper namespace="com.biliaryatresia.entity.Patient">
-     <select id="selectByPage" resultType=".entity.Patient">
-        select * from user ${ew.customSqlSegment}
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="PatientMap">
+        select
+            p_id,p_name,p_password,p_tel,p_date,p_wechat,p_birthday,p_gender,p_weight,p_eat
+        from patient
+        where p_id = #{pId}
     </select>
+
+    <!--分页查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PatientMap">
+        select
+        p_id,p_name,p_password,p_tel,p_date,p_wechat,p_birthday,p_gender,p_weight,p_eat
+        from patient
+        <where>
+            <if test="pId != null and pId != ''">
+                and p_id = #{pId}
+            </if>
+            <if test="pName != null and pName != ''">
+                and p_name = #{pName}
+            </if>
+            <if test="pPassword != null and pPassword != ''">
+                and p_password = #{pPassword}
+            </if>
+            <if test="pTel != null and pTel != ''">
+                and p_tel = #{pTel}
+            </if>
+            <if test="pDate != null and pDate != ''">
+                and p_date = #{pDate}
+            </if>
+            <if test="pWechat != null and pWechat != ''">
+                and p_wechat = #{pWechat}
+            </if>
+            <if test="pBirthday != null and pBirthday != ''">
+                and p_birthday = #{pBirthday}
+            </if>
+            <if test="pGender != null and pGender != ''">
+                and p_gender = #{pGender}
+            </if>
+            <if test="pWeight != null and pWeight != ''">
+                and p_weight = #{pWeight}
+            </if>
+            <if test="pEat != null and pEat != ''">
+                and p_eat = #{pEat}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from patient
+        <where>
+            <if test="pId != null and pId != ''">
+                and p_id = #{pId}
+            </if>
+            <if test="pName != null and pName != ''">
+                and p_name = #{pName}
+            </if>
+            <if test="pPassword != null and pPassword != ''">
+                and p_password = #{pPassword}
+            </if>
+            <if test="pTel != null and pTel != ''">
+                and p_tel = #{pTel}
+            </if>
+            <if test="pDate != null and pDate != ''">
+                and p_date = #{pDate}
+            </if>
+            <if test="pWechat != null and pWechat != ''">
+                and p_wechat = #{pWechat}
+            </if>
+            <if test="pBirthday != null and pBirthday != ''">
+                and p_birthday = #{pBirthday}
+            </if>
+            <if test="pGender != null and pGender != ''">
+                and p_gender = #{pGender}
+            </if>
+            <if test="pWeight != null and pWeight != ''">
+                and p_weight = #{pWeight}
+            </if>
+            <if test="pEat != null and pEat != ''">
+                and p_eat = #{pEat}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="p_id" useGeneratedKeys="true">
+        insert into patient(p_id,p_name,p_password,p_tel,p_date,p_wechat,p_birthday,p_gender,p_weight,p_eat)
+        values (#{pId},#{pName},#{pPassword},#{pTel},#{pDate},#{pWechat},#{pBirthday},#{pGender},#{pWeight},#{pEat})
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <insert id="insertBatch" keyProperty="p_id" useGeneratedKeys="true">
+        insert into patient(p_id,p_name,p_password,p_tel,p_date,p_wechat,p_birthday,p_gender,p_weight,p_eat)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.pId},#{entity.pName},#{entity.pPassword},#{entity.pTel},#{entity.pDate},#{entity.pWechat},#{entity.pBirthday},#{entity.pGender},#{entity.pWeight},#{entity.pEat})
+        </foreach>
+    </insert>
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="p_id" useGeneratedKeys="true">
+        insert into patient(p_id,p_name,p_password,p_tel,p_date,p_wechat,p_birthday,p_gender,p_weight,p_eat)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.pId},#{entity.pName},#{entity.pPassword},#{entity.pTel},#{entity.pDate},#{entity.pWechat},#{entity.pBirthday},#{entity.pGender},#{entity.pWeight},#{entity.pEat})
+        </foreach>
+        on duplicate key update
+        p_id=values(p_id),
+        p_name=values(p_name),
+        p_password=values(p_password),
+        p_tel=values(p_tel),
+        p_date=values(p_date),
+        p_wechat=values(p_wechat),
+        p_birthday=values(p_birthday),
+        p_gender=values(p_gender),
+        p_weight=values(p_weight),
+        p_eat=values(p_eat)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update patient
+        <set>
+            <if test="pId != null and pId != ''">
+                p_id = #{pId},
+            </if>
+            <if test="pName != null and pName != ''">
+                p_name = #{pName},
+            </if>
+            <if test="pPassword != null and pPassword != ''">
+                p_password = #{pPassword},
+            </if>
+            <if test="pTel != null and pTel != ''">
+                p_tel = #{pTel},
+            </if>
+            <if test="pDate != null and pDate != ''">
+                p_date = #{pDate},
+            </if>
+            <if test="pWechat != null and pWechat != ''">
+                p_wechat = #{pWechat},
+            </if>
+            <if test="pBirthday != null and pBirthday != ''">
+                p_birthday = #{pBirthday},
+            </if>
+            <if test="pGender != null and pGender != ''">
+                p_gender = #{pGender},
+            </if>
+            <if test="pWeight != null and pWeight != ''">
+                p_weight = #{pWeight},
+            </if>
+            <if test="pEat != null and pEat != ''">
+                p_eat = #{pEat},
+            </if>
+        </set>
+        where p_id = #{pId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from patient where p_id = #{pId}
+    </delete>
 </mapper>

@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.biliaryatresia.mapper.PrescriptionMapper">
     <resultMap type="com.biliaryatresia.entity.Prescription" id="PrescriptionMap">
-        <result property="preId" column="pre_id" jdbcType="INT"/>
-        <result property="docId" column="doc_id" jdbcType="INT"/>
-        <result property="pId" column="p_id" jdbcType="INT"/>
-        <result property="rId" column="r_id" jdbcType="INT"/>
-        <result property="preDate" column="pre_date" jdbcType="DATETIME"/>
+        <result property="preId" column="pre_id" jdbcType="INTEGER"/>
+        <result property="docId" column="doc_id" jdbcType="INTEGER"/>
+        <result property="pId" column="p_id" jdbcType="INTEGER"/>
+        <result property="rId" column="r_id" jdbcType="INTEGER"/>
+        <result property="preDate" column="pre_date" javaType="java.util.Date" jdbcType="DATE"/>
         <result property="preContent" column="pre_content" jdbcType="VARCHAR"/>
     </resultMap>
 

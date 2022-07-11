@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.biliaryatresia.mapper.LogMapper">
     <resultMap type="com.biliaryatresia.entity.Log" id="LogMap">
-        <result property="logId" column="log_id" jdbcType="INT"/>
+        <result property="logId" column="log_id" jdbcType="INTEGER"/>
         <result property="logUrl" column="log_url" jdbcType="VARCHAR"/>
         <result property="logIp" column="log_ip" jdbcType="VARCHAR"/>
-        <result property="logDate" column="log_date" jdbcType="DATETIME"/>
-        <result property="pId" column="p_id" jdbcType="INT"/>
-        <result property="docId" column="doc_id" jdbcType="INT"/>
-        <result property="adminId" column="admin_id" jdbcType="INT"/>
+        <result property="logDate" column="log_date" javaType="java.util.Date" jdbcType="DATE"/>
+        <result property="pId" column="p_id" jdbcType="INTEGER"/>
+        <result property="docId" column="doc_id" jdbcType="INTEGER"/>
+        <result property="adminId" column="admin_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <!-- 通过ID查询单条数据 -->

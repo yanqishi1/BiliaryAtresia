@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.biliaryatresia.mapper.DoctorMapper">
     <resultMap type="com.biliaryatresia.entity.Doctor" id="DoctorMap">
-        <result property="docId" column="doc_id" jdbcType="INT"/>
+        <result property="docId" column="doc_id" jdbcType="INTEGER"/>
         <result property="docName" column="doc_name" jdbcType="VARCHAR"/>
         <result property="docPassword" column="doc_password" jdbcType="VARCHAR"/>
         <result property="docTel" column="doc_tel" jdbcType="VARCHAR"/>
-        <result property="docDate" column="doc_date" jdbcType="DATETIME"/>
+        <result property="docDate" column="doc_date" javaType="java.util.Date" jdbcType="DATE"/>
         <result property="docWechat" column="doc_wechat" jdbcType="VARCHAR"/>
         <result property="docReserve" column="doc_reserve" jdbcType="VARCHAR"/>
         <result property="docFee" column="doc_fee" jdbcType="VARCHAR"/>
-        <result property="docDept" column="doc_dept" jdbcType="INT"/>
+        <result property="docDept" column="doc_dept" jdbcType="INTEGER"/>
     </resultMap>
 
     <!-- 通过ID查询单条数据 -->

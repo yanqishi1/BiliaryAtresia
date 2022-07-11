@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.biliaryatresia.mapper.DeptMapper">
     <resultMap type="com.biliaryatresia.entity.Dept" id="DeptMap">
-        <result property="deptId" column="dept_id" jdbcType="INT"/>
+        <result property="deptId" column="dept_id" jdbcType="INTEGER"/>
         <result property="deptName" column="dept_name" jdbcType="VARCHAR"/>
-        <result property="deptMaster" column="dept_master" jdbcType="INT"/>
-        <result property="deptDate" column="dept_date" jdbcType="DATETIME"/>
-        <result property="deptNum" column="dept_num" jdbcType="INT"/>
+        <result property="deptMaster" column="dept_master" jdbcType="INTEGER"/>
+        <result property="deptDate" column="dept_date" javaType="java.util.Date" jdbcType="DATE"/>
+        <result property="deptNum" column="dept_num" jdbcType="INTEGER"/>
     </resultMap>
 
     <!-- 通过ID查询单条数据 -->

@@ -1,16 +1,14 @@
 package com.biliaryatresia.controller;
 
-import java.util.List;
-
-import com.biliaryatresia.entity.Patient;
-import com.biliaryatresia.service.PatientService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.biliaryatresia.entity.Patient;
+import com.biliaryatresia.service.PatientService;
 
 /**
  * 患者;(patient)表控制层
@@ -45,18 +43,8 @@ public class PatientController{
      */
     @ApiOperation("分页查询")
     @GetMapping
-    public ResponseEntity<PageImpl<Patient>> paginQuery(Patient patient, PageRequest pageRequest){
-        //1.分页参数
-        long current = pageRequest.getPageNumber();
-        long size = pageRequest.getPageSize();
-        //2.分页查询
-        /*把Mybatis的分页对象做封装转换，MP的分页对象上有一些SQL敏感信息，还是通过spring的分页模型来封装数据吧*/
-        com.baomidou.mybatisplus.extension.plugins.pagination.Page<Patient> pageResult = patientService.paginQuery(patient, current,size);
-        //3. 分页结果组装
-        List<Patient> dataList = pageResult.getRecords();
-        long total = pageResult.getTotal();
-        PageImpl<Patient> retPage = new PageImpl<Patient>(dataList,pageRequest,total);
-        return ResponseEntity.ok(retPage);
+    public ResponseEntity<Page<Patient>> paginQuery(Patient patient, PageRequest pageRequest){
+        return ResponseEntity.ok(patientService.paginQuery(patient, pageRequest));
     }
 
     /**

@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.biliaryatresia.mapper.AdminMapper">
     <resultMap type="com.biliaryatresia.entity.Admin" id="AdminMap">
-        <result property="adminId" column="admin_id" jdbcType="INT"/>
+        <result property="adminId" column="admin_id" jdbcType="INTEGER"/>
         <result property="adminName" column="admin_name" jdbcType="VARCHAR"/>
         <result property="adminTel" column="admin_tel" jdbcType="VARCHAR"/>
-        <result property="adminDate" column="admin_date" jdbcType="DATETIME"/>
+        <result property="adminDate" column="admin_date" javaType="java.util.Date" jdbcType="DATE"/>
         <result property="adminPassword" column="admin_password" jdbcType="VARCHAR"/>
         <result property="adminPower" column="admin_power" jdbcType="VARCHAR"/>
     </resultMap>

@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>新生儿胆道闭锁检测系统</title>
+        <meta charset="utf-8">
+        <style>
+            html,body{
+                margin: auto;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+            }
+            .header{
+                padding-top: 3%;
+                background-color: #ff464b;
+                height: 30%;
+                background-image: url("/img/background.jpg");
+                background-size:100% 100%;
+            }
+            .title{
+                font-size: 3em;
+                text-shadow: 10px 10px 10px #cba36d;
+                color: #f9f7f4;
+            }
+
+            .main{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+
+            }
+            .block{
+                border-radius: 5px;
+                height: 400px;
+                width: 35%;
+                margin: 50px;
+            }
+            .block:hover{
+                cursor: pointer;
+            }
+            .block-img{
+                padding: 20% 0;
+            }
+            .desc{
+                font-size: 2.5em;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+    <section class="header">
+        <h1 class="title">华西小儿外科与您共筑幸福家园</h1>
+    </section>
+    <section class="main">
+        <div class="block" style="background-color: #51cfff;" onclick="window.location.href='/a/scan.html'">
+            <div class="block-img">
+                <img src="img/icon/1.png">
+            </div>
+            <div class="desc">扫我测便便</div>
+        </div>
+        <div class="block" style="background-color: #ffd464" onclick="window.location.href='/home/guilde/'">
+            <div class="block-img">
+                <img src="img/icon/2.png">
+            </div>
+            <div class="desc">胆道闭锁术后指导</div>
+        </div>
+        <div class="block" style="background-color: #6eefcc;height: 300px;" onclick="window.location.href='/home/conduct/'">
+            <div class="block-img">
+                <img src="img/icon/3.png">
+            </div>
+            <div class="desc">宣传材料</div>
+        </div>
+        <div class="block" style="background-color: #ffa289;height: 300px;" onclick="window.location.href='/home/about/'">
+            <div class="block-img">
+                <img src="img/icon/4.png">
+            </div>
+            <div class="desc">关于我们</div>
+        </div>
+    </section>
+    </body>
+</html>

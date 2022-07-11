@@ -1,12 +1,10 @@
 package com.biliaryatresia.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.Constants;
-import com.biliaryatresia.entity.Patient;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.Pageable;
+import com.biliaryatresia.entity.Patient;
 
 /**
  * 患者;(patient)表数据库访问层
@@ -14,13 +12,62 @@ import org.apache.ibatis.annotations.Param;
  * @date : 2022-7-11
  */
 @Mapper
-public interface PatientMapper  extends BaseMapper<Patient>{
+public interface PatientMapper{
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param pId 主键
+     * @return 实例对象
+     */
+    Patient queryById(Integer pId);
     /**
      * 分页查询指定行数据
      *
-     * @param page 分页参数
-     * @param wrapper 动态查询条件
-     * @return 分页对象列表
+     * @param patient 查询条件
+     * @param pageable 分页对象
+     * @return 对象列表
      */
-    IPage<Patient> selectByPage(IPage<Patient> page , @Param(Constants.WRAPPER) Wrapper<Patient> wrapper);
+    List<Patient> queryAllByLimit(Patient patient, @Param("pageable") Pageable pageable);
+    /**
+     * 统计总行数
+     *
+     * @param patient 查询条件
+     * @return 总行数
+     */
+    long count(Patient patient);
+    /**
+     * 新增数据
+     *
+     * @param patient 实例对象
+     * @return 影响行数
+     */
+    int insert(Patient patient);
+    /**
+     * 批量新增数据
+     *
+     * @param entities List<Patient> 实例对象列表
+     * @return 影响行数
+     */
+    int insertBatch(@Param("entities") List<Patient> entities);
+    /**
+     * 批量新增或按主键更新数据
+     *
+     * @param entities List<Patient> 实例对象列表
+     * @return 影响行数
+     */
+    int insertOrUpdateBatch(@Param("entities") List<Patient> entities);
+    /**
+     * 更新数据
+     *
+     * @param patient 实例对象
+     * @return 影响行数
+     */
+    int update(Patient patient);
+    /**
+     * 通过主键删除数据
+     *
+     * @param pId 主键
+     * @return 影响行数
+     */
+    int deleteById(Integer pId);
 }

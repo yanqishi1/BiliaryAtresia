@@ -1,6 +1,7 @@
 package com.biliaryatresia.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import com.biliaryatresia.entity.Patient;
 
 /**
@@ -9,7 +10,6 @@ import com.biliaryatresia.entity.Patient;
  * @date : 2022-7-11
  */
 public interface PatientService{
-
     /**
      * 通过ID查询单条数据
      *
@@ -17,16 +17,14 @@ public interface PatientService{
      * @return 实例对象
      */
     Patient queryById(Integer pId);
-
     /**
      * 分页查询
      *
      * @param patient 筛选条件
-     * @param current 当前页码
-     * @param size  每页大小
-     * @return
+     * @param pageRequest 分页对象
+     * @return 查询结果
      */
-    Page<Patient> paginQuery(Patient patient, long current, long size);
+    Page<Patient> paginQuery(Patient patient, PageRequest pageRequest);
     /**
      * 新增数据
      *
