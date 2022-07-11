@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biliaryatresia.mapper.AdminMapper">
+    <resultMap type="com.biliaryatresia.entity.Admin" id="AdminMap">
+        <result property="adminId" column="admin_id" jdbcType="INT"/>
+        <result property="adminName" column="admin_name" jdbcType="VARCHAR"/>
+        <result property="adminTel" column="admin_tel" jdbcType="VARCHAR"/>
+        <result property="adminDate" column="admin_date" jdbcType="DATETIME"/>
+        <result property="adminPassword" column="admin_password" jdbcType="VARCHAR"/>
+        <result property="adminPower" column="admin_power" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="AdminMap">
+        select
+            admin_id,admin_name,admin_tel,admin_date,admin_password,admin_power
+        from Admin
+        where admin_id = #{adminId}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AdminMap">
+        select
+        admin_id,admin_name,admin_tel,admin_date,admin_password,admin_power
+        from Admin
+        <where>
+            <if test="adminId != null and adminId != ''">
+                and admin_id = #{adminId}
+            </if>
+            <if test="adminName != null and adminName != ''">
+                and admin_name = #{adminName}
+            </if>
+            <if test="adminTel != null and adminTel != ''">
+                and admin_tel = #{adminTel}
+            </if>
+            <if test="adminDate != null and adminDate != ''">
+                and admin_date = #{adminDate}
+            </if>
+            <if test="adminPassword != null and adminPassword != ''">
+                and admin_password = #{adminPassword}
+            </if>
+            <if test="adminPower != null and adminPower != ''">
+                and admin_power = #{adminPower}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from Admin
+        <where>
+            <if test="adminId != null and adminId != ''">
+                and admin_id = #{adminId}
+            </if>
+            <if test="adminName != null and adminName != ''">
+                and admin_name = #{adminName}
+            </if>
+            <if test="adminTel != null and adminTel != ''">
+                and admin_tel = #{adminTel}
+            </if>
+            <if test="adminDate != null and adminDate != ''">
+                and admin_date = #{adminDate}
+            </if>
+            <if test="adminPassword != null and adminPassword != ''">
+                and admin_password = #{adminPassword}
+            </if>
+            <if test="adminPower != null and adminPower != ''">
+                and admin_power = #{adminPower}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="admin_id" useGeneratedKeys="true">
+        insert into Admin(admin_id,admin_name,admin_tel,admin_date,admin_password,admin_power)
+        values (#{adminId},#{adminName},#{adminTel},#{adminDate},#{adminPassword},#{adminPower})
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <insert id="insertBatch" keyProperty="admin_id" useGeneratedKeys="true">
+        insert into Admin(admin_id,admin_name,admin_tel,admin_date,admin_password,admin_power)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.adminId},#{entity.adminName},#{entity.adminTel},#{entity.adminDate},#{entity.adminPassword},#{entity.adminPower})
+        </foreach>
+    </insert>
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="admin_id" useGeneratedKeys="true">
+        insert into Admin(admin_id,admin_name,admin_tel,admin_date,admin_password,admin_power)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.adminId},#{entity.adminName},#{entity.adminTel},#{entity.adminDate},#{entity.adminPassword},#{entity.adminPower})
+        </foreach>
+        on duplicate key update
+        admin_id=values(admin_id),
+        admin_name=values(admin_name),
+        admin_tel=values(admin_tel),
+        admin_date=values(admin_date),
+        admin_password=values(admin_password),
+        admin_power=values(admin_power)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update Admin
+        <set>
+            <if test="adminId != null and adminId != ''">
+                admin_id = #{adminId},
+            </if>
+            <if test="adminName != null and adminName != ''">
+                admin_name = #{adminName},
+            </if>
+            <if test="adminTel != null and adminTel != ''">
+                admin_tel = #{adminTel},
+            </if>
+            <if test="adminDate != null and adminDate != ''">
+                admin_date = #{adminDate},
+            </if>
+            <if test="adminPassword != null and adminPassword != ''">
+                admin_password = #{adminPassword},
+            </if>
+            <if test="adminPower != null and adminPower != ''">
+                admin_power = #{adminPower},
+            </if>
+        </set>
+        where admin_id = #{adminId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from Admin where admin_id = #{adminId}
+    </delete>
+</mapper>

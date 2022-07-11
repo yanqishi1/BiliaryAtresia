@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biliaryatresia.mapper.DeptMapper">
+    <resultMap type="com.biliaryatresia.entity.Dept" id="DeptMap">
+        <result property="deptId" column="dept_id" jdbcType="INT"/>
+        <result property="deptName" column="dept_name" jdbcType="VARCHAR"/>
+        <result property="deptMaster" column="dept_master" jdbcType="INT"/>
+        <result property="deptDate" column="dept_date" jdbcType="DATETIME"/>
+        <result property="deptNum" column="dept_num" jdbcType="INT"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="DeptMap">
+        select
+            dept_id,dept_name,dept_master,dept_date,dept_num
+        from dept
+        where dept_id = #{deptId}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DeptMap">
+        select
+        dept_id,dept_name,dept_master,dept_date,dept_num
+        from dept
+        <where>
+            <if test="deptId != null and deptId != ''">
+                and dept_id = #{deptId}
+            </if>
+            <if test="deptName != null and deptName != ''">
+                and dept_name = #{deptName}
+            </if>
+            <if test="deptMaster != null and deptMaster != ''">
+                and dept_master = #{deptMaster}
+            </if>
+            <if test="deptDate != null and deptDate != ''">
+                and dept_date = #{deptDate}
+            </if>
+            <if test="deptNum != null and deptNum != ''">
+                and dept_num = #{deptNum}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from dept
+        <where>
+            <if test="deptId != null and deptId != ''">
+                and dept_id = #{deptId}
+            </if>
+            <if test="deptName != null and deptName != ''">
+                and dept_name = #{deptName}
+            </if>
+            <if test="deptMaster != null and deptMaster != ''">
+                and dept_master = #{deptMaster}
+            </if>
+            <if test="deptDate != null and deptDate != ''">
+                and dept_date = #{deptDate}
+            </if>
+            <if test="deptNum != null and deptNum != ''">
+                and dept_num = #{deptNum}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="dept_id" useGeneratedKeys="true">
+        insert into dept(dept_id,dept_name,dept_master,dept_date,dept_num)
+        values (#{deptId},#{deptName},#{deptMaster},#{deptDate},#{deptNum})
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <insert id="insertBatch" keyProperty="dept_id" useGeneratedKeys="true">
+        insert into dept(dept_id,dept_name,dept_master,dept_date,dept_num)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.deptId},#{entity.deptName},#{entity.deptMaster},#{entity.deptDate},#{entity.deptNum})
+        </foreach>
+    </insert>
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="dept_id" useGeneratedKeys="true">
+        insert into dept(dept_id,dept_name,dept_master,dept_date,dept_num)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.deptId},#{entity.deptName},#{entity.deptMaster},#{entity.deptDate},#{entity.deptNum})
+        </foreach>
+        on duplicate key update
+        dept_id=values(dept_id),
+        dept_name=values(dept_name),
+        dept_master=values(dept_master),
+        dept_date=values(dept_date),
+        dept_num=values(dept_num)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update dept
+        <set>
+            <if test="deptId != null and deptId != ''">
+                dept_id = #{deptId},
+            </if>
+            <if test="deptName != null and deptName != ''">
+                dept_name = #{deptName},
+            </if>
+            <if test="deptMaster != null and deptMaster != ''">
+                dept_master = #{deptMaster},
+            </if>
+            <if test="deptDate != null and deptDate != ''">
+                dept_date = #{deptDate},
+            </if>
+            <if test="deptNum != null and deptNum != ''">
+                dept_num = #{deptNum},
+            </if>
+        </set>
+        where dept_id = #{deptId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from dept where dept_id = #{deptId}
+    </delete>
+</mapper>

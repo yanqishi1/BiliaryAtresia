@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biliaryatresia.mapper.FeeMapper">
+    <resultMap type="com.biliaryatresia.entity.Fee" id="FeeMap">
+        <result property="fId" column="f_id" jdbcType="INT"/>
+        <result property="fNum" column="f_num" jdbcType="DECIMAL"/>
+        <result property="pId" column="p_id" jdbcType="DECIMAL"/>
+        <result property="fDate" column="f_date" jdbcType="DATETIME"/>
+        <result property="fPay" column="f_pay" jdbcType="VARCHAR"/>
+        <result property="fPayAccount" column="f_pay_account" jdbcType="VARCHAR"/>
+        <result property="rId" column="r_id" jdbcType="INT"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="FeeMap">
+        select
+            f_id,f_num,p_id,f_date,f_pay,f_pay_account,r_id
+        from fee
+        where f_id = #{fId}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="FeeMap">
+        select
+        f_id,f_num,p_id,f_date,f_pay,f_pay_account,r_id
+        from fee
+        <where>
+            <if test="fId != null and fId != ''">
+                and f_id = #{fId}
+            </if>
+            <if test="fNum != null and fNum != ''">
+                and f_num = #{fNum}
+            </if>
+            <if test="pId != null and pId != ''">
+                and p_id = #{pId}
+            </if>
+            <if test="fDate != null and fDate != ''">
+                and f_date = #{fDate}
+            </if>
+            <if test="fPay != null and fPay != ''">
+                and f_pay = #{fPay}
+            </if>
+            <if test="fPayAccount != null and fPayAccount != ''">
+                and f_pay_account = #{fPayAccount}
+            </if>
+            <if test="rId != null and rId != ''">
+                and r_id = #{rId}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from fee
+        <where>
+            <if test="fId != null and fId != ''">
+                and f_id = #{fId}
+            </if>
+            <if test="fNum != null and fNum != ''">
+                and f_num = #{fNum}
+            </if>
+            <if test="pId != null and pId != ''">
+                and p_id = #{pId}
+            </if>
+            <if test="fDate != null and fDate != ''">
+                and f_date = #{fDate}
+            </if>
+            <if test="fPay != null and fPay != ''">
+                and f_pay = #{fPay}
+            </if>
+            <if test="fPayAccount != null and fPayAccount != ''">
+                and f_pay_account = #{fPayAccount}
+            </if>
+            <if test="rId != null and rId != ''">
+                and r_id = #{rId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="f_id" useGeneratedKeys="true">
+        insert into fee(f_id,f_num,p_id,f_date,f_pay,f_pay_account,r_id)
+        values (#{fId},#{fNum},#{pId},#{fDate},#{fPay},#{fPayAccount},#{rId})
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <insert id="insertBatch" keyProperty="f_id" useGeneratedKeys="true">
+        insert into fee(f_id,f_num,p_id,f_date,f_pay,f_pay_account,r_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.fId},#{entity.fNum},#{entity.pId},#{entity.fDate},#{entity.fPay},#{entity.fPayAccount},#{entity.rId})
+        </foreach>
+    </insert>
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="f_id" useGeneratedKeys="true">
+        insert into fee(f_id,f_num,p_id,f_date,f_pay,f_pay_account,r_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.fId},#{entity.fNum},#{entity.pId},#{entity.fDate},#{entity.fPay},#{entity.fPayAccount},#{entity.rId})
+        </foreach>
+        on duplicate key update
+        f_id=values(f_id),
+        f_num=values(f_num),
+        p_id=values(p_id),
+        f_date=values(f_date),
+        f_pay=values(f_pay),
+        f_pay_account=values(f_pay_account),
+        r_id=values(r_id)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update fee
+        <set>
+            <if test="fId != null and fId != ''">
+                f_id = #{fId},
+            </if>
+            <if test="fNum != null and fNum != ''">
+                f_num = #{fNum},
+            </if>
+            <if test="pId != null and pId != ''">
+                p_id = #{pId},
+            </if>
+            <if test="fDate != null and fDate != ''">
+                f_date = #{fDate},
+            </if>
+            <if test="fPay != null and fPay != ''">
+                f_pay = #{fPay},
+            </if>
+            <if test="fPayAccount != null and fPayAccount != ''">
+                f_pay_account = #{fPayAccount},
+            </if>
+            <if test="rId != null and rId != ''">
+                r_id = #{rId},
+            </if>
+        </set>
+        where f_id = #{fId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from fee where f_id = #{fId}
+    </delete>
+</mapper>

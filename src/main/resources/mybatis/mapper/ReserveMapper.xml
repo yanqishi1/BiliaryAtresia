@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biliaryatresia.mapper.ReserveMapper">
+    <resultMap type="com.biliaryatresia.entity.Reserve" id="ReserveMap">
+        <result property="rId" column="r_id" jdbcType="INT"/>
+        <result property="pId" column="p_id" jdbcType="VARCHAR"/>
+        <result property="docId" column="doc_id" jdbcType="VARCHAR"/>
+        <result property="rDate" column="r_date" jdbcType="DATETIME"/>
+        <result property="rMeetingDate" column="r_meeting_date" jdbcType="VARCHAR"/>
+        <result property="rFee" column="r_fee" jdbcType="DATETIME"/>
+        <result property="rState" column="r_state" jdbcType="INT"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="ReserveMap">
+        select
+            r_id,p_id,doc_id,r_date,r_meeting_date,r_fee,r_state
+        from reserve
+        where r_id = #{rId}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ReserveMap">
+        select
+        r_id,p_id,doc_id,r_date,r_meeting_date,r_fee,r_state
+        from reserve
+        <where>
+            <if test="rId != null and rId != ''">
+                and r_id = #{rId}
+            </if>
+            <if test="pId != null and pId != ''">
+                and p_id = #{pId}
+            </if>
+            <if test="docId != null and docId != ''">
+                and doc_id = #{docId}
+            </if>
+            <if test="rDate != null and rDate != ''">
+                and r_date = #{rDate}
+            </if>
+            <if test="rMeetingDate != null and rMeetingDate != ''">
+                and r_meeting_date = #{rMeetingDate}
+            </if>
+            <if test="rFee != null and rFee != ''">
+                and r_fee = #{rFee}
+            </if>
+            <if test="rState != null and rState != ''">
+                and r_state = #{rState}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from reserve
+        <where>
+            <if test="rId != null and rId != ''">
+                and r_id = #{rId}
+            </if>
+            <if test="pId != null and pId != ''">
+                and p_id = #{pId}
+            </if>
+            <if test="docId != null and docId != ''">
+                and doc_id = #{docId}
+            </if>
+            <if test="rDate != null and rDate != ''">
+                and r_date = #{rDate}
+            </if>
+            <if test="rMeetingDate != null and rMeetingDate != ''">
+                and r_meeting_date = #{rMeetingDate}
+            </if>
+            <if test="rFee != null and rFee != ''">
+                and r_fee = #{rFee}
+            </if>
+            <if test="rState != null and rState != ''">
+                and r_state = #{rState}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="r_id" useGeneratedKeys="true">
+        insert into reserve(r_id,p_id,doc_id,r_date,r_meeting_date,r_fee,r_state)
+        values (#{rId},#{pId},#{docId},#{rDate},#{rMeetingDate},#{rFee},#{rState})
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <insert id="insertBatch" keyProperty="r_id" useGeneratedKeys="true">
+        insert into reserve(r_id,p_id,doc_id,r_date,r_meeting_date,r_fee,r_state)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.rId},#{entity.pId},#{entity.docId},#{entity.rDate},#{entity.rMeetingDate},#{entity.rFee},#{entity.rState})
+        </foreach>
+    </insert>
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="r_id" useGeneratedKeys="true">
+        insert into reserve(r_id,p_id,doc_id,r_date,r_meeting_date,r_fee,r_state)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.rId},#{entity.pId},#{entity.docId},#{entity.rDate},#{entity.rMeetingDate},#{entity.rFee},#{entity.rState})
+        </foreach>
+        on duplicate key update
+        r_id=values(r_id),
+        p_id=values(p_id),
+        doc_id=values(doc_id),
+        r_date=values(r_date),
+        r_meeting_date=values(r_meeting_date),
+        r_fee=values(r_fee),
+        r_state=values(r_state)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update reserve
+        <set>
+            <if test="rId != null and rId != ''">
+                r_id = #{rId},
+            </if>
+            <if test="pId != null and pId != ''">
+                p_id = #{pId},
+            </if>
+            <if test="docId != null and docId != ''">
+                doc_id = #{docId},
+            </if>
+            <if test="rDate != null and rDate != ''">
+                r_date = #{rDate},
+            </if>
+            <if test="rMeetingDate != null and rMeetingDate != ''">
+                r_meeting_date = #{rMeetingDate},
+            </if>
+            <if test="rFee != null and rFee != ''">
+                r_fee = #{rFee},
+            </if>
+            <if test="rState != null and rState != ''">
+                r_state = #{rState},
+            </if>
+        </set>
+        where r_id = #{rId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from reserve where r_id = #{rId}
+    </delete>
+</mapper>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biliaryatresia.mapper.LogMapper">
+    <resultMap type="com.biliaryatresia.entity.Log" id="LogMap">
+        <result property="logId" column="log_id" jdbcType="INT"/>
+        <result property="logUrl" column="log_url" jdbcType="VARCHAR"/>
+        <result property="logIp" column="log_ip" jdbcType="VARCHAR"/>
+        <result property="logDate" column="log_date" jdbcType="DATETIME"/>
+        <result property="pId" column="p_id" jdbcType="INT"/>
+        <result property="docId" column="doc_id" jdbcType="INT"/>
+        <result property="adminId" column="admin_id" jdbcType="INT"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="LogMap">
+        select
+            log_id,log_url,log_ip,log_date,p_id,doc_id,admin_id
+        from Log
+        where log_id = #{logId}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="LogMap">
+        select
+        log_id,log_url,log_ip,log_date,p_id,doc_id,admin_id
+        from Log
+        <where>
+            <if test="logId != null and logId != ''">
+                and log_id = #{logId}
+            </if>
+            <if test="logUrl != null and logUrl != ''">
+                and log_url = #{logUrl}
+            </if>
+            <if test="logIp != null and logIp != ''">
+                and log_ip = #{logIp}
+            </if>
+            <if test="logDate != null and logDate != ''">
+                and log_date = #{logDate}
+            </if>
+            <if test="pId != null and pId != ''">
+                and p_id = #{pId}
+            </if>
+            <if test="docId != null and docId != ''">
+                and doc_id = #{docId}
+            </if>
+            <if test="adminId != null and adminId != ''">
+                and admin_id = #{adminId}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from Log
+        <where>
+            <if test="logId != null and logId != ''">
+                and log_id = #{logId}
+            </if>
+            <if test="logUrl != null and logUrl != ''">
+                and log_url = #{logUrl}
+            </if>
+            <if test="logIp != null and logIp != ''">
+                and log_ip = #{logIp}
+            </if>
+            <if test="logDate != null and logDate != ''">
+                and log_date = #{logDate}
+            </if>
+            <if test="pId != null and pId != ''">
+                and p_id = #{pId}
+            </if>
+            <if test="docId != null and docId != ''">
+                and doc_id = #{docId}
+            </if>
+            <if test="adminId != null and adminId != ''">
+                and admin_id = #{adminId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="log_id" useGeneratedKeys="true">
+        insert into Log(log_id,log_url,log_ip,log_date,p_id,doc_id,admin_id)
+        values (#{logId},#{logUrl},#{logIp},#{logDate},#{pId},#{docId},#{adminId})
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <insert id="insertBatch" keyProperty="log_id" useGeneratedKeys="true">
+        insert into Log(log_id,log_url,log_ip,log_date,p_id,doc_id,admin_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.logId},#{entity.logUrl},#{entity.logIp},#{entity.logDate},#{entity.pId},#{entity.docId},#{entity.adminId})
+        </foreach>
+    </insert>
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="log_id" useGeneratedKeys="true">
+        insert into Log(log_id,log_url,log_ip,log_date,p_id,doc_id,admin_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.logId},#{entity.logUrl},#{entity.logIp},#{entity.logDate},#{entity.pId},#{entity.docId},#{entity.adminId})
+        </foreach>
+        on duplicate key update
+        log_id=values(log_id),
+        log_url=values(log_url),
+        log_ip=values(log_ip),
+        log_date=values(log_date),
+        p_id=values(p_id),
+        doc_id=values(doc_id),
+        admin_id=values(admin_id)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update Log
+        <set>
+            <if test="logId != null and logId != ''">
+                log_id = #{logId},
+            </if>
+            <if test="logUrl != null and logUrl != ''">
+                log_url = #{logUrl},
+            </if>
+            <if test="logIp != null and logIp != ''">
+                log_ip = #{logIp},
+            </if>
+            <if test="logDate != null and logDate != ''">
+                log_date = #{logDate},
+            </if>
+            <if test="pId != null and pId != ''">
+                p_id = #{pId},
+            </if>
+            <if test="docId != null and docId != ''">
+                doc_id = #{docId},
+            </if>
+            <if test="adminId != null and adminId != ''">
+                admin_id = #{adminId},
+            </if>
+        </set>
+        where log_id = #{logId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from Log where log_id = #{logId}
+    </delete>
+</mapper>

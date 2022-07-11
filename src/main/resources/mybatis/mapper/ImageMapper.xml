@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biliaryatresia.mapper.ImageMapper">
+    <resultMap type="com.biliaryatresia.entity.Image" id="ImageMap">
+        <result property="imgId" column="img_id" jdbcType="INT"/>
+        <result property="pId" column="p_id" jdbcType="INT"/>
+        <result property="imgDate" column="img_date" jdbcType="DATETIME"/>
+        <result property="imgDir" column="img_dir" jdbcType="VARCHAR"/>
+        <result property="detectResult" column="detect_result" jdbcType="VARCHAR"/>
+        <result property="docResult" column="doc_result" jdbcType="INT"/>
+        <result property="docId" column="doc_id" jdbcType="INT"/>
+        <result property="imgColor" column="img_color" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="ImageMap">
+        select
+            img_id,p_id,img_date,img_dir,detect_result,doc_result,doc_id,img_color
+        from image
+        where img_id = #{imgId}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ImageMap">
+        select
+        img_id,p_id,img_date,img_dir,detect_result,doc_result,doc_id,img_color
+        from image
+        <where>
+            <if test="imgId != null and imgId != ''">
+                and img_id = #{imgId}
+            </if>
+            <if test="pId != null and pId != ''">
+                and p_id = #{pId}
+            </if>
+            <if test="imgDate != null and imgDate != ''">
+                and img_date = #{imgDate}
+            </if>
+            <if test="imgDir != null and imgDir != ''">
+                and img_dir = #{imgDir}
+            </if>
+            <if test="detectResult != null and detectResult != ''">
+                and detect_result = #{detectResult}
+            </if>
+            <if test="docResult != null and docResult != ''">
+                and doc_result = #{docResult}
+            </if>
+            <if test="docId != null and docId != ''">
+                and doc_id = #{docId}
+            </if>
+            <if test="imgColor != null and imgColor != ''">
+                and img_color = #{imgColor}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from image
+        <where>
+            <if test="imgId != null and imgId != ''">
+                and img_id = #{imgId}
+            </if>
+            <if test="pId != null and pId != ''">
+                and p_id = #{pId}
+            </if>
+            <if test="imgDate != null and imgDate != ''">
+                and img_date = #{imgDate}
+            </if>
+            <if test="imgDir != null and imgDir != ''">
+                and img_dir = #{imgDir}
+            </if>
+            <if test="detectResult != null and detectResult != ''">
+                and detect_result = #{detectResult}
+            </if>
+            <if test="docResult != null and docResult != ''">
+                and doc_result = #{docResult}
+            </if>
+            <if test="docId != null and docId != ''">
+                and doc_id = #{docId}
+            </if>
+            <if test="imgColor != null and imgColor != ''">
+                and img_color = #{imgColor}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="img_id" useGeneratedKeys="true">
+        insert into image(img_id,p_id,img_date,img_dir,detect_result,doc_result,doc_id,img_color)
+        values (#{imgId},#{pId},#{imgDate},#{imgDir},#{detectResult},#{docResult},#{docId},#{imgColor})
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <insert id="insertBatch" keyProperty="img_id" useGeneratedKeys="true">
+        insert into image(img_id,p_id,img_date,img_dir,detect_result,doc_result,doc_id,img_color)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.imgId},#{entity.pId},#{entity.imgDate},#{entity.imgDir},#{entity.detectResult},#{entity.docResult},#{entity.docId},#{entity.imgColor})
+        </foreach>
+    </insert>
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="img_id" useGeneratedKeys="true">
+        insert into image(img_id,p_id,img_date,img_dir,detect_result,doc_result,doc_id,img_color)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.imgId},#{entity.pId},#{entity.imgDate},#{entity.imgDir},#{entity.detectResult},#{entity.docResult},#{entity.docId},#{entity.imgColor})
+        </foreach>
+        on duplicate key update
+        img_id=values(img_id),
+        p_id=values(p_id),
+        img_date=values(img_date),
+        img_dir=values(img_dir),
+        detect_result=values(detect_result),
+        doc_result=values(doc_result),
+        doc_id=values(doc_id),
+        img_color=values(img_color)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update image
+        <set>
+            <if test="imgId != null and imgId != ''">
+                img_id = #{imgId},
+            </if>
+            <if test="pId != null and pId != ''">
+                p_id = #{pId},
+            </if>
+            <if test="imgDate != null and imgDate != ''">
+                img_date = #{imgDate},
+            </if>
+            <if test="imgDir != null and imgDir != ''">
+                img_dir = #{imgDir},
+            </if>
+            <if test="detectResult != null and detectResult != ''">
+                detect_result = #{detectResult},
+            </if>
+            <if test="docResult != null and docResult != ''">
+                doc_result = #{docResult},
+            </if>
+            <if test="docId != null and docId != ''">
+                doc_id = #{docId},
+            </if>
+            <if test="imgColor != null and imgColor != ''">
+                img_color = #{imgColor},
+            </if>
+        </set>
+        where img_id = #{imgId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from image where img_id = #{imgId}
+    </delete>
+</mapper>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biliaryatresia.mapper.DoctorMapper">
+    <resultMap type="com.biliaryatresia.entity.Doctor" id="DoctorMap">
+        <result property="docId" column="doc_id" jdbcType="INT"/>
+        <result property="docName" column="doc_name" jdbcType="VARCHAR"/>
+        <result property="docPassword" column="doc_password" jdbcType="VARCHAR"/>
+        <result property="docTel" column="doc_tel" jdbcType="VARCHAR"/>
+        <result property="docDate" column="doc_date" jdbcType="DATETIME"/>
+        <result property="docWechat" column="doc_wechat" jdbcType="VARCHAR"/>
+        <result property="docReserve" column="doc_reserve" jdbcType="VARCHAR"/>
+        <result property="docFee" column="doc_fee" jdbcType="VARCHAR"/>
+        <result property="docDept" column="doc_dept" jdbcType="INT"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="DoctorMap">
+        select
+            doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept
+        from doctor
+        where doc_id = #{docId}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DoctorMap">
+        select
+            doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept
+        from doctor
+        <where>
+            <if test="docId != null and docId != ''">
+                and doc_id = #{docId}
+            </if>
+            <if test="docName != null and docName != ''">
+                and doc_name = #{docName}
+            </if>
+            <if test="docPassword != null and docPassword != ''">
+                and doc_password = #{docPassword}
+            </if>
+            <if test="docTel != null and docTel != ''">
+                and doc_tel = #{docTel}
+            </if>
+            <if test="docDate != null and docDate != ''">
+                and doc_date = #{docDate}
+            </if>
+            <if test="docWechat != null and docWechat != ''">
+                and doc_wechat = #{docWechat}
+            </if>
+            <if test="docReserve != null and docReserve != ''">
+                and doc_reserve = #{docReserve}
+            </if>
+            <if test="docFee != null and docFee != ''">
+                and doc_fee = #{docFee}
+            </if>
+            <if test="docDept != null and docDept != ''">
+                and doc_dept = #{docDept}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from doctor
+        <where>
+            <if test="docId != null and docId != ''">
+                and doc_id = #{docId}
+            </if>
+            <if test="docName != null and docName != ''">
+                and doc_name = #{docName}
+            </if>
+            <if test="docPassword != null and docPassword != ''">
+                and doc_password = #{docPassword}
+            </if>
+            <if test="docTel != null and docTel != ''">
+                and doc_tel = #{docTel}
+            </if>
+            <if test="docDate != null and docDate != ''">
+                and doc_date = #{docDate}
+            </if>
+            <if test="docWechat != null and docWechat != ''">
+                and doc_wechat = #{docWechat}
+            </if>
+            <if test="docReserve != null and docReserve != ''">
+                and doc_reserve = #{docReserve}
+            </if>
+            <if test="docFee != null and docFee != ''">
+                and doc_fee = #{docFee}
+            </if>
+            <if test="docDept != null and docDept != ''">
+                and doc_dept = #{docDept}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="doc_id" useGeneratedKeys="true">
+        insert into doctor(doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept)
+        values (#{docId},#{docName},#{docPassword},#{docTel},#{docDate},#{docWechat},#{docReserve},#{docFee},#{docDept})
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <insert id="insertBatch" keyProperty="doc_id" useGeneratedKeys="true">
+        insert into doctor(doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.docId},#{entity.docName},#{entity.docPassword},#{entity.docTel},#{entity.docDate},#{entity.docWechat},#{entity.docReserve},#{entity.docFee},#{entity.docDept})
+        </foreach>
+    </insert>
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="doc_id" useGeneratedKeys="true">
+        insert into doctor(doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.docId},#{entity.docName},#{entity.docPassword},#{entity.docTel},#{entity.docDate},#{entity.docWechat},#{entity.docReserve},#{entity.docFee},#{entity.docDept})
+        </foreach>
+        on duplicate key update
+        doc_id=values(doc_id),
+		doc_name=values(doc_name),
+		doc_password=values(doc_password),
+		doc_tel=values(doc_tel),
+		doc_date=values(doc_date),
+		doc_wechat=values(doc_wechat),
+		doc_reserve=values(doc_reserve),
+		doc_fee=values(doc_fee),
+		doc_dept=values(doc_dept)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update doctor
+        <set>
+            <if test="docId != null and docId != ''">
+                doc_id = #{docId},
+            </if>
+            <if test="docName != null and docName != ''">
+                doc_name = #{docName},
+            </if>
+            <if test="docPassword != null and docPassword != ''">
+                doc_password = #{docPassword},
+            </if>
+            <if test="docTel != null and docTel != ''">
+                doc_tel = #{docTel},
+            </if>
+            <if test="docDate != null and docDate != ''">
+                doc_date = #{docDate},
+            </if>
+            <if test="docWechat != null and docWechat != ''">
+                doc_wechat = #{docWechat},
+            </if>
+            <if test="docReserve != null and docReserve != ''">
+                doc_reserve = #{docReserve},
+            </if>
+            <if test="docFee != null and docFee != ''">
+                doc_fee = #{docFee},
+            </if>
+            <if test="docDept != null and docDept != ''">
+                doc_dept = #{docDept},
+            </if>
+        </set>
+        where doc_id = #{docId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from doctor where doc_id = #{docId}
+    </delete>
+</mapper>
