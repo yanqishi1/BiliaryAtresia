@@ -20,6 +20,14 @@ public interface PatientMapper{
      * @return 实例对象
      */
     Patient queryById(Integer pId);
+
+    /**
+     * 通过电话号码查询单条数据
+     *
+     * @param tel 电话号码
+     * @return 实例对象
+     */
+    Patient queryByTel(String tel);
     /**
      * 分页查询指定行数据
      *
@@ -42,6 +50,15 @@ public interface PatientMapper{
      * @return 影响行数
      */
     int insert(Patient patient);
+
+    /**
+     * 新增数据
+     *
+     * @param patient 实例对象
+     * @return 影响行数
+     */
+    int register(Patient patient);
+
     /**
      * 批量新增数据
      *

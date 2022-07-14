@@ -22,6 +22,14 @@
         where p_id = #{pId}
     </select>
 
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryByTel" resultMap="PatientMap">
+        select
+            p_id,p_name,p_password,p_tel,p_date,p_wechat,p_birthday,p_gender,p_weight,p_eat
+        from patient
+        where p_tel = #{tel}
+    </select>
+
     <!--分页查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PatientMap">
         select
@@ -104,6 +112,12 @@
     <insert id="insert" keyProperty="p_id" useGeneratedKeys="true">
         insert into patient(p_id,p_name,p_password,p_tel,p_date,p_wechat,p_birthday,p_gender,p_weight,p_eat)
         values (#{pId},#{pName},#{pPassword},#{pTel},#{pDate},#{pWechat},#{pBirthday},#{pGender},#{pWeight},#{pEat})
+    </insert>
+
+    <!--新增数据-->
+    <insert id="register" keyProperty="pId" useGeneratedKeys="true">
+        insert into patient(p_password,p_tel,p_date)
+        values (#{pPassword},#{pTel},#{pDate})
     </insert>
 
     <!-- 批量新增数据 -->
