@@ -17,6 +17,7 @@ import java.util.Map;
 
 @Api(tags = "登录注册功能接口")
 @RestController
+@CrossOrigin
 @RequestMapping("/api/account")
 public class AccountController {
     @Autowired
@@ -63,13 +64,12 @@ public class AccountController {
                           String password,
                           String code,
                           HttpSession session){
-        return accountService.register(account, password);
-//        String vcode = (String)session.getAttribute("checkcode");
-//        if(code!=null && code.equals(vcode)){
-//            return accountService.register(account, password);
-//        }else{
-//            return new Pager(500, "Error");
-//        }
+        String vcode = (String)session.getAttribute("vcode");
+        if(code!=null && code.equals(vcode)){
+            return accountService.register(account, password);
+        }else{
+            return new Pager(500, "Error");
+        }
     }
 
 }

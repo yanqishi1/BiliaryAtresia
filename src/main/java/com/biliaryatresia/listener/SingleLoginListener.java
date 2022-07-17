@@ -24,7 +24,8 @@ public class SingleLoginListener implements ServletContextListener,
          initialized(when the Web application is deployed). 
          You can initialize servlet context related data here.
       */
-        ApplicationConstants.projectPath = sce.getServletContext().getRealPath("./");
+        ApplicationConstants.projectPath = "/home/kali/JAVAWEB/BiliaryAtresia/src/main/resources/static/";
+//        ApplicationConstants.projectPath = sce.getServletContext().getRealPath("./");
         System.out.println("Project Path："+ApplicationConstants.projectPath);
     }
 

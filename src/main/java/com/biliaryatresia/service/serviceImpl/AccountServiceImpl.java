@@ -1,7 +1,8 @@
-package com.biliaryatresia.service;
+package com.biliaryatresia.service.serviceImpl;
 
 import com.biliaryatresia.entity.Patient;
 import com.biliaryatresia.mapper.PatientMapper;
+import com.biliaryatresia.service.AccountService;
 import com.biliaryatresia.util.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
 
     @Autowired
     PatientMapper patientMapper = null;
