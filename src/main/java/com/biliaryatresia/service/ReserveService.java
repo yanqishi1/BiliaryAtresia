@@ -1,6 +1,8 @@
 package com.biliaryatresia.service;
 
+import com.biliaryatresia.entity.Patient;
 import com.biliaryatresia.entity.Reserve;
+import com.biliaryatresia.util.Msg;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -47,4 +49,6 @@ public interface ReserveService{
      * @return 是否成功
      */
     boolean deleteById(Integer rId);
+
+    Msg reserve(String name, String _birthday, String sex, String _date, Patient patient, Integer doctorId);
 }

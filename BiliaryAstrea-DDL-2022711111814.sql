@@ -15,29 +15,31 @@ CREATE TABLE patient(
 
 DROP TABLE IF EXISTS doctor;
 CREATE TABLE doctor(
-    doc_id INT NOT NULL AUTO_INCREMENT  COMMENT '医生id' ,
-    doc_name VARCHAR(90)    COMMENT '医生姓名' ,
-    doc_password VARCHAR(255)    COMMENT '密码' ,
-    doc_tel VARCHAR(255)    COMMENT '医生电话' ,
-    doc_date DATETIME    COMMENT '创建时间' ,
-    doc_wechat VARCHAR(255)    COMMENT '微信' ,
-    doc_reserve VARCHAR(255)    COMMENT '预约人数限制' ,
-    doc_fee VARCHAR(255)    COMMENT '挂号费用' ,
-    doc_dept INT    COMMENT '医生所属科室' ,
-    PRIMARY KEY (doc_id)
+       doc_id INT NOT NULL AUTO_INCREMENT  COMMENT '医生id' ,
+       doc_name VARCHAR(90)    COMMENT '医生姓名' ,
+       doc_password VARCHAR(255)    COMMENT '密码' ,
+       doc_tel VARCHAR(255)    COMMENT '医生电话' ,
+       doc_date DATETIME    COMMENT '创建时间' ,
+       doc_wechat VARCHAR(255)    COMMENT '微信' ,
+       doc_reserve VARCHAR(255)    COMMENT '预约人数限制' ,
+       doc_fee VARCHAR(255)    COMMENT '挂号费用' ,
+       doc_dept INT    COMMENT '医生所属科室' ,
+       doc_title VARCHAR(255)    COMMENT '医生的职称' ,
+       PRIMARY KEY (doc_id)
 )  COMMENT = '医生';
 
 DROP TABLE IF EXISTS reserve;
 CREATE TABLE reserve(
     r_id INT NOT NULL AUTO_INCREMENT  COMMENT '挂号id' ,
-    p_id VARCHAR(32)    COMMENT '病人id' ,
-    doc_id VARCHAR(32)    COMMENT '医生id' ,
+    p_id INT    COMMENT '病人id' ,
+    doc_id INT    COMMENT '医生id' ,
     r_date DATETIME    COMMENT '创建时间' ,
-    r_meeting_date VARCHAR(32)    COMMENT '预约时间' ,
-    r_fee DATETIME    COMMENT '挂号费用' ,
+    r_meeting_date DATETIME    COMMENT '预约时间' ,
+    r_fee DECIMAL(24,6)    COMMENT '挂号费用' ,
     r_state INT    COMMENT '挂号状态;预约失败是0， 预约成功是1，取消预约2，挂号结束3' ,
     PRIMARY KEY (r_id)
 )  COMMENT = '挂号';
+
 
 DROP TABLE IF EXISTS dept;
 CREATE TABLE dept(
@@ -107,6 +109,15 @@ CREATE TABLE Log(
     admin_id INT    COMMENT '管理员id' ,
     PRIMARY KEY (log_id)
 )  COMMENT = '日志管理';
+
+DROP TABLE IF EXISTS appointment;
+CREATE TABLE appointment(
+    a_id INT NOT NULL AUTO_INCREMENT  COMMENT 'id' ,
+    doc_id INT    COMMENT '医生id' ,
+    num INT    COMMENT '剩余数量' ,
+    date DATETIME    COMMENT '更新时间' ,
+    PRIMARY KEY (a_id)
+)  COMMENT = '挂号查询';
 
 /* 插入字典总表[Item-数据字典条目] */
 INSERT INTO SYS_DICT(KEY_,LABEL,INTRO,REVISION) VALUES('Item','数据字典条目','',1);

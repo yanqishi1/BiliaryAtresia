@@ -1,23 +1,18 @@
 package com.biliaryatresia.entity;
 
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 医生;
  * @author : GyberPunk
- * @date : 2022-7-11
+ * @date : 2022-7-18
  */
 @ApiModel(value = "医生",description = "")
-@Table(name="doctor")
 public class Doctor implements Serializable,Cloneable{
     /** 医生id */
-    @Id
-    @GeneratedValue
     @ApiModelProperty(name = "医生id",notes = "")
     private Integer docId ;
     /** 医生姓名 */
@@ -40,10 +35,13 @@ public class Doctor implements Serializable,Cloneable{
     private String docReserve ;
     /** 挂号费用 */
     @ApiModelProperty(name = "挂号费用",notes = "")
-    private String docFee ;
+    private Double docFee ;
     /** 医生所属科室 */
     @ApiModelProperty(name = "医生所属科室",notes = "")
     private Integer docDept ;
+    /** 医生的职称 */
+    @ApiModelProperty(name = "医生的职称",notes = "")
+    private String docTitle ;
 
     /** 医生id */
     public Integer getDocId(){
@@ -102,11 +100,11 @@ public class Doctor implements Serializable,Cloneable{
         this.docReserve=docReserve;
     }
     /** 挂号费用 */
-    public String getDocFee(){
+    public Double getDocFee(){
         return this.docFee;
     }
     /** 挂号费用 */
-    public void setDocFee(String docFee){
+    public void setDocFee(Double docFee){
         this.docFee=docFee;
     }
     /** 医生所属科室 */
@@ -116,5 +114,13 @@ public class Doctor implements Serializable,Cloneable{
     /** 医生所属科室 */
     public void setDocDept(Integer docDept){
         this.docDept=docDept;
+    }
+    /** 医生的职称 */
+    public String getDocTitle(){
+        return this.docTitle;
+    }
+    /** 医生的职称 */
+    public void setDocTitle(String docTitle){
+        this.docTitle=docTitle;
     }
 }

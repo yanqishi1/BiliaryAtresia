@@ -1,98 +1,99 @@
 package com.biliaryatresia.entity;
 
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 挂号;
- * @author : GyberPunk
- * @date : 2022-7-11
+ * @author : http://www.chiner.pro
+ * @date : 2022-7-18
  */
 @ApiModel(value = "挂号",description = "")
-@Table(name="reserve")
 public class Reserve implements Serializable,Cloneable{
+
+    /*预约失败是0， 预约成功是1，取消预约2，挂号结束3*/
+    public static final Integer FAIL = 0;
+    public static final Integer SUCCESS = 1;
+    public static final Integer CANCEL = 2;
+    public static final Integer END = 3;
+
     /** 挂号id */
-    @Id
-    @GeneratedValue
     @ApiModelProperty(name = "挂号id",notes = "")
     private Integer rId ;
     /** 病人id */
     @ApiModelProperty(name = "病人id",notes = "")
-    private String pId ;
+    private Integer pId ;
     /** 医生id */
     @ApiModelProperty(name = "医生id",notes = "")
-    private String docId ;
+    private Integer docId ;
     /** 创建时间 */
     @ApiModelProperty(name = "创建时间",notes = "")
     private Date rDate ;
     /** 预约时间 */
     @ApiModelProperty(name = "预约时间",notes = "")
-    private String rMeetingDate ;
+    private Date rMeetingDate ;
     /** 挂号费用 */
     @ApiModelProperty(name = "挂号费用",notes = "")
-    private Date rFee ;
+    private Double rFee ;
     /** 挂号状态;预约失败是0， 预约成功是1，取消预约2，挂号结束3 */
     @ApiModelProperty(name = "挂号状态",notes = "预约失败是0， 预约成功是1，取消预约2，挂号结束3")
     private Integer rState ;
 
-    /** 挂号id */
-    public Integer getRId(){
-        return this.rId;
+    public Integer getrId() {
+        return rId;
     }
-    /** 挂号id */
-    public void setRId(Integer rId){
-        this.rId=rId;
+
+    public void setrId(Integer rId) {
+        this.rId = rId;
     }
-    /** 病人id */
-    public String getPId(){
-        return this.pId;
+
+    public Integer getpId() {
+        return pId;
     }
-    /** 病人id */
-    public void setPId(String pId){
-        this.pId=pId;
+
+    public void setpId(Integer pId) {
+        this.pId = pId;
     }
-    /** 医生id */
-    public String getDocId(){
-        return this.docId;
+
+    public Integer getDocId() {
+        return docId;
     }
-    /** 医生id */
-    public void setDocId(String docId){
-        this.docId=docId;
+
+    public void setDocId(Integer docId) {
+        this.docId = docId;
     }
-    /** 创建时间 */
-    public Date getRDate(){
-        return this.rDate;
+
+    public Date getrDate() {
+        return rDate;
     }
-    /** 创建时间 */
-    public void setRDate(Date rDate){
-        this.rDate=rDate;
+
+    public void setrDate(Date rDate) {
+        this.rDate = rDate;
     }
-    /** 预约时间 */
-    public String getRMeetingDate(){
-        return this.rMeetingDate;
+
+    public Date getrMeetingDate() {
+        return rMeetingDate;
     }
-    /** 预约时间 */
-    public void setRMeetingDate(String rMeetingDate){
-        this.rMeetingDate=rMeetingDate;
+
+    public void setrMeetingDate(Date rMeetingDate) {
+        this.rMeetingDate = rMeetingDate;
     }
-    /** 挂号费用 */
-    public Date getRFee(){
-        return this.rFee;
+
+    public Double getrFee() {
+        return rFee;
     }
-    /** 挂号费用 */
-    public void setRFee(Date rFee){
-        this.rFee=rFee;
+
+    public void setrFee(Double rFee) {
+        this.rFee = rFee;
     }
-    /** 挂号状态;预约失败是0， 预约成功是1，取消预约2，挂号结束3 */
-    public Integer getRState(){
-        return this.rState;
+
+    public Integer getrState() {
+        return rState;
     }
-    /** 挂号状态;预约失败是0， 预约成功是1，取消预约2，挂号结束3 */
-    public void setRState(Integer rState){
-        this.rState=rState;
+
+    public void setrState(Integer rState) {
+        this.rState = rState;
     }
 }

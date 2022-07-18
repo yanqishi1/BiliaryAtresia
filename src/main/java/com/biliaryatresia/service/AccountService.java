@@ -1,10 +1,11 @@
 package com.biliaryatresia.service;
 
-import com.biliaryatresia.util.Pager;
-import org.springframework.stereotype.Service;
+import com.biliaryatresia.util.Msg;
+
+import javax.servlet.http.HttpSession;
 
 public interface AccountService {
-    public Pager login(String tel, String password);
+    public Msg login(String tel, String password, HttpSession session);
 
-    public Pager register(String tel, String password);
+    public Msg register(String tel, String password);
 }

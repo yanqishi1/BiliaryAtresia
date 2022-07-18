@@ -70,4 +70,10 @@ public interface ReserveMapper{
      * @return 影响行数
      */
     int deleteById(Integer rId);
+
+    /**
+     * 创建预约
+     * @param reserve
+     */
+    void create(Reserve reserve);
 }

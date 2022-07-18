@@ -3,11 +3,11 @@
 <mapper namespace="com.biliaryatresia.mapper.ReserveMapper">
     <resultMap type="com.biliaryatresia.entity.Reserve" id="ReserveMap">
         <result property="rId" column="r_id" jdbcType="INTEGER"/>
-        <result property="pId" column="p_id" jdbcType="VARCHAR"/>
-        <result property="docId" column="doc_id" jdbcType="VARCHAR"/>
+        <result property="pId" column="p_id" jdbcType="INTEGER"/>
+        <result property="docId" column="doc_id" jdbcType="INTEGER"/>
         <result property="rDate" column="r_date" javaType="java.util.Date" jdbcType="DATE"/>
-        <result property="rMeetingDate" column="r_meeting_date" jdbcType="VARCHAR"/>
-        <result property="rFee" column="r_fee" javaType="java.util.Date" jdbcType="DATE"/>
+        <result property="rMeetingDate" column="r_meeting_date" javaType="java.util.Date" jdbcType="DATE"/>
+        <result property="rFee" column="r_fee" jdbcType="DECIMAL"/>
         <result property="rState" column="r_state" jdbcType="INTEGER"/>
     </resultMap>
 
@@ -83,6 +83,11 @@
     <insert id="insert" keyProperty="r_id" useGeneratedKeys="true">
         insert into reserve(r_id,p_id,doc_id,r_date,r_meeting_date,r_fee,r_state)
         values (#{rId},#{pId},#{docId},#{rDate},#{rMeetingDate},#{rFee},#{rState})
+    </insert>
+
+    <insert id="create" useGeneratedKeys="true">
+        insert into reserve(p_id,doc_id,r_date,r_meeting_date,r_fee,r_state)
+        values (#{pId},#{docId},#{rDate},#{rMeetingDate},#{rFee},#{rState})
     </insert>
 
     <!-- 批量新增数据 -->

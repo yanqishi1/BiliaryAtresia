@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biliaryatresia.mapper.AppointmentMapper">
+    <resultMap type="com.biliaryatresia.entity.Appointment" id="AppointmentMap">
+        <result property="aId" column="a_id" jdbcType="INTEGER"/>
+        <result property="docId" column="doc_id" jdbcType="INTEGER"/>
+        <result property="num" column="num" jdbcType="INTEGER"/>
+        <result property="date" column="date" javaType="java.util.Date" jdbcType="DATE"/>
+    </resultMap>
+
+    <resultMap type="com.biliaryatresia.entity.Appointment" id="AppointmentView">
+        <result property="aId" column="a_id" javaType="INTEGER"/>
+        <result property="docId" column="doc_id" jdbcType="INTEGER"/>
+        <result property="num" column="num" jdbcType="INTEGER"/>
+        <result property="fee" column="doc_fee" jdbcType="DECIMAL"/>
+        <result property="doctor_name" column="doc_name" jdbcType="VARCHAR"/>
+        <result property="title" column="doc_title" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="AppointmentMap">
+        select
+            a_id,doc_id,num,date
+        from appointment
+        where a_id = #{aId}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AppointmentMap">
+        select
+        a_id,doc_id,num,date
+        from appointment
+        <where>
+            <if test="aId != null and aId != ''">
+                and a_id = #{aId}
+            </if>
+            <if test="docId != null and docId != ''">
+                and doc_id = #{docId}
+            </if>
+            <if test="num != null and num != ''">
+                and num = #{num}
+            </if>
+            <if test="date != null and date != ''">
+                and date = #{date}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <select id="queryByDate" resultMap="AppointmentView">
+        select doctor.doc_id,doc_name, doc_fee, doc_title,num
+        from doctor, appointment
+        where doctor.doc_id=appointment.doc_id
+        and datediff(appointment.date, #{date}) = 0
+    </select>
+
+    <select id="queryByDocDate" resultMap="AppointmentView">
+        select a_id,doctor.doc_id,doc_name, doc_fee, doc_title,num
+        from doctor, appointment
+        where doctor.doc_id=appointment.doc_id
+        and appointment.doc_id=#{doctorId}
+        and datediff(appointment.date, #{date}) = 0
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from appointment
+        <where>
+            <if test="aId != null and aId != ''">
+                and a_id = #{aId}
+            </if>
+            <if test="docId != null and docId != ''">
+                and doc_id = #{docId}
+            </if>
+            <if test="num != null and num != ''">
+                and num = #{num}
+            </if>
+            <if test="date != null and date != ''">
+                and date = #{date}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="a_id" useGeneratedKeys="true">
+        insert into appointment(a_id,doc_id,num,date)
+        values (#{aId},#{docId},#{num},#{date})
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <insert id="insertBatch" keyProperty="a_id" useGeneratedKeys="true">
+        insert into appointment(a_id,doc_id,num,date)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.aId},#{entity.docId},#{entity.num},#{entity.date})
+        </foreach>
+    </insert>
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="a_id" useGeneratedKeys="true">
+        insert into appointment(a_id,doc_id,num,date)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.aId},#{entity.docId},#{entity.num},#{entity.date})
+        </foreach>
+        on duplicate key update
+        a_id=values(a_id),
+        doc_id=values(doc_id),
+        num=values(num),
+        date=values(date)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update appointment
+        <set>
+            <if test="aId != null and aId != ''">
+                a_id = #{aId},
+            </if>
+            <if test="docId != null and docId != ''">
+                doc_id = #{docId},
+            </if>
+            <if test="num != null and num != ''">
+                num = #{num},
+            </if>
+            <if test="date != null and date != ''">
+                date = #{date},
+            </if>
+        </set>
+        where a_id = #{aId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from appointment where a_id = #{aId}
+    </delete>
+</mapper>

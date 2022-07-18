@@ -2,7 +2,7 @@ package com.biliaryatresia.controller;
 
 import com.biliaryatresia.service.AccountService;
 import com.biliaryatresia.service.VcodeService;
-import com.biliaryatresia.util.Pager;
+import com.biliaryatresia.util.Msg;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Map;
 
 
 @Api(tags = "登录注册功能接口")
@@ -54,21 +53,21 @@ public class AccountController {
      */
     @ResponseBody
     @RequestMapping(value = "/login",method = {RequestMethod.POST,RequestMethod.POST})
-    public Pager login(String account, String password){
-        return accountService.login(account, password);
+    public Msg login(String account, String password, HttpSession session){
+        return accountService.login(account, password, session);
     }
 
     @ResponseBody
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public Pager register(String account,
-                          String password,
-                          String code,
-                          HttpSession session){
+    public Msg register(String account,
+                        String password,
+                        String code,
+                        HttpSession session){
         String vcode = (String)session.getAttribute("vcode");
         if(code!=null && code.equals(vcode)){
             return accountService.register(account, password);
         }else{
-            return new Pager(500, "Error");
+            return new Msg(500, "Error");
         }
     }
 

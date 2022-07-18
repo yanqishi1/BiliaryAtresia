@@ -11,12 +11,14 @@
         <result property="docReserve" column="doc_reserve" jdbcType="VARCHAR"/>
         <result property="docFee" column="doc_fee" jdbcType="VARCHAR"/>
         <result property="docDept" column="doc_dept" jdbcType="INTEGER"/>
+        <result property="docTitle" column="doc_title" jdbcType="VARCHAR"/>
     </resultMap>
+
 
     <!-- 通过ID查询单条数据 -->
     <select id="queryById" resultMap="DoctorMap">
         select
-            doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept
+            doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept,doc_title
         from doctor
         where doc_id = #{docId}
     </select>
@@ -24,7 +26,7 @@
     <!--分页查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DoctorMap">
         select
-            doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept
+        doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept,doc_title
         from doctor
         <where>
             <if test="docId != null and docId != ''">
@@ -53,6 +55,9 @@
             </if>
             <if test="docDept != null and docDept != ''">
                 and doc_dept = #{docDept}
+            </if>
+            <if test="docTitle != null and docTitle != ''">
+                and doc_title = #{docTitle}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -90,41 +95,45 @@
             <if test="docDept != null and docDept != ''">
                 and doc_dept = #{docDept}
             </if>
+            <if test="docTitle != null and docTitle != ''">
+                and doc_title = #{docTitle}
+            </if>
         </where>
     </select>
 
     <!--新增数据-->
     <insert id="insert" keyProperty="doc_id" useGeneratedKeys="true">
-        insert into doctor(doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept)
-        values (#{docId},#{docName},#{docPassword},#{docTel},#{docDate},#{docWechat},#{docReserve},#{docFee},#{docDept})
+        insert into doctor(doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept,doc_title)
+        values (#{docId},#{docName},#{docPassword},#{docTel},#{docDate},#{docWechat},#{docReserve},#{docFee},#{docDept},#{docTitle})
     </insert>
 
     <!-- 批量新增数据 -->
     <insert id="insertBatch" keyProperty="doc_id" useGeneratedKeys="true">
-        insert into doctor(doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept)
+        insert into doctor(doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept,doc_title)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.docId},#{entity.docName},#{entity.docPassword},#{entity.docTel},#{entity.docDate},#{entity.docWechat},#{entity.docReserve},#{entity.docFee},#{entity.docDept})
+            (#{entity.docId},#{entity.docName},#{entity.docPassword},#{entity.docTel},#{entity.docDate},#{entity.docWechat},#{entity.docReserve},#{entity.docFee},#{entity.docDept},#{entity.docTitle})
         </foreach>
     </insert>
 
     <!-- 批量新增或按主键更新数据 -->
     <insert id="insertOrUpdateBatch" keyProperty="doc_id" useGeneratedKeys="true">
-        insert into doctor(doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept)
+        insert into doctor(doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept,doc_title)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.docId},#{entity.docName},#{entity.docPassword},#{entity.docTel},#{entity.docDate},#{entity.docWechat},#{entity.docReserve},#{entity.docFee},#{entity.docDept})
+            (#{entity.docId},#{entity.docName},#{entity.docPassword},#{entity.docTel},#{entity.docDate},#{entity.docWechat},#{entity.docReserve},#{entity.docFee},#{entity.docDept},#{entity.docTitle})
         </foreach>
         on duplicate key update
         doc_id=values(doc_id),
-		doc_name=values(doc_name),
-		doc_password=values(doc_password),
-		doc_tel=values(doc_tel),
-		doc_date=values(doc_date),
-		doc_wechat=values(doc_wechat),
-		doc_reserve=values(doc_reserve),
-		doc_fee=values(doc_fee),
-		doc_dept=values(doc_dept)
+        doc_name=values(doc_name),
+        doc_password=values(doc_password),
+        doc_tel=values(doc_tel),
+        doc_date=values(doc_date),
+        doc_wechat=values(doc_wechat),
+        doc_reserve=values(doc_reserve),
+        doc_fee=values(doc_fee),
+        doc_dept=values(doc_dept),
+        doc_title=values(doc_title)
     </insert>
 
     <!-- 更新数据 -->
@@ -157,6 +166,9 @@
             </if>
             <if test="docDept != null and docDept != ''">
                 doc_dept = #{docDept},
+            </if>
+            <if test="docTitle != null and docTitle != ''">
+                doc_title = #{docTitle},
             </if>
         </set>
         where doc_id = #{docId}

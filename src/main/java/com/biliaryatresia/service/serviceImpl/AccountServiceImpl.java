@@ -3,10 +3,11 @@ package com.biliaryatresia.service.serviceImpl;
 import com.biliaryatresia.entity.Patient;
 import com.biliaryatresia.mapper.PatientMapper;
 import com.biliaryatresia.service.AccountService;
-import com.biliaryatresia.util.Pager;
+import com.biliaryatresia.util.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 @Service
@@ -15,11 +16,12 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     PatientMapper patientMapper = null;
     @Override
-    public Pager login(String tel, String password) {
-        Pager pager = new Pager();
+    public Msg login(String tel, String password, HttpSession session) {
+        Msg pager = new Msg();
         Patient patient = patientMapper.queryByTel(tel);
         if(patient!=null){
             if(password!=null && password.equals(patient.getPPassword())){
+                session.setAttribute("patient", patient);
                 pager.setCode(200);
                 pager.setMsg("Login Succcess!");
             }
@@ -31,8 +33,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Pager register(String tel, String password) {
-        Pager pager = new Pager();
+    public Msg register(String tel, String password) {
+        Msg pager = new Msg();
         Patient patient = patientMapper.queryByTel(tel);
         if(patient==null){
             Patient p = new Patient();

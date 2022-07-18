@@ -1,18 +1,14 @@
 package com.biliaryatresia.util;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-public class Pager {
+public class Msg {
 
     private Integer code;
 
     private String msg;
 
-    public Pager(){}
+    public Msg(){}
 
-    public Pager(Integer code, String msg) {
+    public Msg(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }

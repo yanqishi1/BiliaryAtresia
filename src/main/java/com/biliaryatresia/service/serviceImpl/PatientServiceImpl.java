@@ -72,4 +72,6 @@ public class PatientServiceImpl implements PatientService{
         int total = patientMapper.deleteById(pId);
         return total > 0;
     }
+
+
 }

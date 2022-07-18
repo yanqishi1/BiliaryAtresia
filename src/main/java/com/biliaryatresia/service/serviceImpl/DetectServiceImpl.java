@@ -3,7 +3,7 @@ package com.biliaryatresia.service.serviceImpl;
 import com.biliaryatresia.entity.Patient;
 import com.biliaryatresia.listener.ApplicationConstants;
 import com.biliaryatresia.service.DetectService;
-import com.biliaryatresia.util.Pager;
+import com.biliaryatresia.util.Msg;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,8 +16,8 @@ public class DetectServiceImpl implements DetectService {
 
     final String [] results = {"严重异常","异常","可疑","正常"};
     @Override
-    public Pager detectBA(MultipartFile file, Patient patient) {
-        Pager pager = new Pager();
+    public Msg detectBA(MultipartFile file, Patient patient) {
+        Msg pager = new Msg();
         //检查pid文件夹是否存在
         try {
             String folder = ApplicationConstants.projectPath+"upload"+File.separator+patient.getPId();
