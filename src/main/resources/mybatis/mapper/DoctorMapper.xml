@@ -8,8 +8,8 @@
         <result property="docTel" column="doc_tel" jdbcType="VARCHAR"/>
         <result property="docDate" column="doc_date" javaType="java.util.Date" jdbcType="DATE"/>
         <result property="docWechat" column="doc_wechat" jdbcType="VARCHAR"/>
-        <result property="docReserve" column="doc_reserve" jdbcType="VARCHAR"/>
-        <result property="docFee" column="doc_fee" jdbcType="VARCHAR"/>
+        <result property="docReserve" column="doc_reserve" jdbcType="INTEGER"/>
+        <result property="docFee" column="doc_fee" jdbcType="DECIMAL"/>
         <result property="docDept" column="doc_dept" jdbcType="INTEGER"/>
         <result property="docTitle" column="doc_title" jdbcType="VARCHAR"/>
     </resultMap>
@@ -21,6 +21,13 @@
             doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept,doc_title
         from doctor
         where doc_id = #{docId}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="queryAll" resultMap="DoctorMap">
+    select
+    doc_id,doc_name,doc_password,doc_tel,doc_date,doc_wechat,doc_reserve,doc_fee,doc_dept,doc_title
+    from doctor
     </select>
 
     <!--分页查询指定行数据-->

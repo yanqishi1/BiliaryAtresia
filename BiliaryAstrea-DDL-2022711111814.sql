@@ -21,12 +21,13 @@ CREATE TABLE doctor(
        doc_tel VARCHAR(255)    COMMENT '医生电话' ,
        doc_date DATETIME    COMMENT '创建时间' ,
        doc_wechat VARCHAR(255)    COMMENT '微信' ,
-       doc_reserve VARCHAR(255)    COMMENT '预约人数限制' ,
+       doc_reserve INT    COMMENT '预约人数限制' ,
        doc_fee VARCHAR(255)    COMMENT '挂号费用' ,
        doc_dept INT    COMMENT '医生所属科室' ,
        doc_title VARCHAR(255)    COMMENT '医生的职称' ,
        PRIMARY KEY (doc_id)
 )  COMMENT = '医生';
+
 
 DROP TABLE IF EXISTS reserve;
 CREATE TABLE reserve(

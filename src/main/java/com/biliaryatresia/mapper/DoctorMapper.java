@@ -74,4 +74,10 @@ public interface DoctorMapper{
      * @return 影响行数
      */
     int deleteById(Integer docId);
+
+    /**
+     * 获取所有医生的信息
+     * @return
+     */
+    List<Doctor> queryAll();
 }

@@ -50,5 +50,15 @@ public interface AppointmentService{
      */
     boolean deleteById(Integer aId);
 
+    /**
+     * 根据日期获取可以挂号的医生
+     * @param date
+     * @return
+     */
     List<Appointment> getDoctors(String date);
+
+    /**
+     * 每天运行一次，自动分配医生的挂号任务
+     */
+    void assignments(boolean init);
 }

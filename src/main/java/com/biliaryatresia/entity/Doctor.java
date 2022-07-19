@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * 医生;
- * @author : GyberPunk
- * @date : 2022-7-18
+ * @author : http://www.chiner.pro
+ * @date : 2022-7-19
  */
 @ApiModel(value = "医生",description = "")
 public class Doctor implements Serializable,Cloneable{
@@ -32,7 +32,7 @@ public class Doctor implements Serializable,Cloneable{
     private String docWechat ;
     /** 预约人数限制 */
     @ApiModelProperty(name = "预约人数限制",notes = "")
-    private String docReserve ;
+    private Integer docReserve ;
     /** 挂号费用 */
     @ApiModelProperty(name = "挂号费用",notes = "")
     private Double docFee ;
@@ -92,11 +92,11 @@ public class Doctor implements Serializable,Cloneable{
         this.docWechat=docWechat;
     }
     /** 预约人数限制 */
-    public String getDocReserve(){
+    public Integer getDocReserve(){
         return this.docReserve;
     }
     /** 预约人数限制 */
-    public void setDocReserve(String docReserve){
+    public void setDocReserve(Integer docReserve){
         this.docReserve=docReserve;
     }
     /** 挂号费用 */

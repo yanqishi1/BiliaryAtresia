@@ -88,7 +88,7 @@ public class ReserveServiceImpl implements ReserveService {
     }
 
     @Override
-    public Msg reserve(String name, String _birthday, String sex, String _date, Patient patient, Integer doctorId) {
+    public synchronized Msg reserve(String name, String _birthday, String sex, String _date, Patient patient, Integer doctorId) {
         Msg msg = new Msg();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         try {

@@ -89,7 +89,7 @@
     </insert>
 
     <!-- 批量新增数据 -->
-    <insert id="insertBatch" keyProperty="a_id" useGeneratedKeys="true">
+    <insert id="insertBatch" useGeneratedKeys="true">
         insert into appointment(a_id,doc_id,num,date)
         values
         <foreach collection="entities" item="entity" separator=",">

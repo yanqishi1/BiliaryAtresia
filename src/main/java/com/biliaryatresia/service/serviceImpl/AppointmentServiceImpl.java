@@ -1,5 +1,7 @@
 package com.biliaryatresia.service.impl;
 
+import com.biliaryatresia.entity.Doctor;
+import com.biliaryatresia.mapper.DoctorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,9 @@ import java.util.*;
 public class AppointmentServiceImpl implements AppointmentService{
     @Autowired
     private AppointmentMapper appointmentMapper;
+
+    @Autowired
+    private DoctorMapper doctorMapper;
 
     /**
      * 通过ID查询单条数据
@@ -91,5 +96,42 @@ public class AppointmentServiceImpl implements AppointmentService{
             e.printStackTrace();
         }
         return appointments;
+    }
+
+
+    private Date getFutureDate(int day){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR)+day);
+        return calendar.getTime();
+    }
+
+    @Override
+    public void assignments(boolean init) {
+        try {
+            List<Appointment> appointments = new ArrayList<>();
+            List<Doctor> doctors = doctorMapper.queryAll();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            int day = 0;
+            if(init) day = 8;
+            for (; day <= 8; day++) {
+                Date next = getFutureDate(day);
+                for (Doctor doctor:doctors) {
+                    Appointment ap = appointmentMapper.queryByDocDate(doctor.getDocId(), format.format(next));
+                    if(ap==null){
+                        Appointment appointment = new Appointment();
+                        appointment.setNum(doctor.getDocReserve());
+                        appointment.setDocId(doctor.getDocId());
+                        appointment.setDate(next);
+                        appointments.add(appointment);
+                    }
+                }
+            }
+
+            if(appointments.size()>0){
+                appointmentMapper.insertBatch(appointments);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
