@@ -1,7 +1,6 @@
 package com.biliaryatresia.config;
 
 import com.biliaryatresia.service.AppointmentService;
-import com.biliaryatresia.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;

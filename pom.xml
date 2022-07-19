@@ -64,6 +64,12 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.4.2</version>
         </dependency>
+        <!--  Java调用Pytorch模型      -->
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-engine</artifactId>
+            <version>0.14.0</version>
+        </dependency>
         <!--Java工具包Hutool-->
         <dependency>
             <groupId>cn.hutool</groupId>
