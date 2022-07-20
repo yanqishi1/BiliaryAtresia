@@ -71,4 +71,10 @@ public class AccountController {
         }
     }
 
+    @ResponseBody
+    @PostMapping("/getrecord")
+    public Msg getRecord(Integer pid){
+        return accountService.getRecord(pid);
+    }
+
 }

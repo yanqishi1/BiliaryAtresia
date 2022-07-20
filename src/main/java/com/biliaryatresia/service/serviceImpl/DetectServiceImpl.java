@@ -14,10 +14,13 @@ import ai.djl.ndarray.types.Shape;
 import ai.djl.translate.Batchifier;
 import ai.djl.translate.Translator;
 import ai.djl.translate.TranslatorContext;
+import com.biliaryatresia.entity.ImageLog;
 import com.biliaryatresia.entity.Patient;
 import com.biliaryatresia.listener.ApplicationConstants;
+import com.biliaryatresia.mapper.ImageLogMapper;
 import com.biliaryatresia.service.DetectService;
 import com.biliaryatresia.util.Msg;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,14 +28,16 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
 public class DetectServiceImpl implements DetectService {
 
+    @Autowired
+    ImageLogMapper imageLogMapper;
     final String [] results = {"严重异常","异常","可疑","正常","识别出错"};
     final float [] means = {(float) 0.15618113, (float) 0.5503065, (float) 0.27378935};
     final float [] stds = {(float) 0.14181986, (float) 0.19359604, (float) 0.2126395};
@@ -166,8 +171,18 @@ public class DetectServiceImpl implements DetectService {
             File sf = new File(p);
             file.transferTo(sf);
             //检测
+            String re = results[detect(p)];
+
+            //记录检测结果
+            ImageLog imageLog = new ImageLog();
+            imageLog.setPId(patient.getPId());
+            imageLog.setImgDate(new Date());
+            imageLog.setImgDir(p);
+            imageLog.setDetectResult(re);
+            imageLogMapper.insert(imageLog);
+
             pager.setCode(200);
-            pager.setMsg(results[detect(p)]);
+            pager.setMsg(re);
         } catch (IOException e) {
             pager.setCode(500);
             pager.setMsg("File IO Error");

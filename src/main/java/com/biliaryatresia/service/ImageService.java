@@ -2,7 +2,7 @@ package com.biliaryatresia.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import com.biliaryatresia.entity.Image;
+import com.biliaryatresia.entity.ImageLog;
 
 /**
  * 上传图片;(image)表服务接口
@@ -16,7 +16,7 @@ public interface ImageService{
      * @param imgId 主键
      * @return 实例对象
      */
-    Image queryById(Integer imgId);
+    ImageLog queryById(Integer imgId);
     /**
      * 分页查询
      *
@@ -24,21 +24,21 @@ public interface ImageService{
      * @param pageRequest 分页对象
      * @return 查询结果
      */
-    Page<Image> paginQuery(Image image, PageRequest pageRequest);
+    Page<ImageLog> paginQuery(ImageLog image, PageRequest pageRequest);
     /**
      * 新增数据
      *
      * @param image 实例对象
      * @return 实例对象
      */
-    Image insert(Image image);
+    ImageLog insert(ImageLog image);
     /**
      * 更新数据
      *
      * @param image 实例对象
      * @return 实例对象
      */
-    Image update(Image image);
+    ImageLog update(ImageLog image);
     /**
      * 通过主键删除数据
      *

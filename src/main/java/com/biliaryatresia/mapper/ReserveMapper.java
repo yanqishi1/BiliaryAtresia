@@ -76,4 +76,6 @@ public interface ReserveMapper{
      * @param reserve
      */
     void create(Reserve reserve);
+
+    List<Reserve> queryByPid(Integer pid);
 }

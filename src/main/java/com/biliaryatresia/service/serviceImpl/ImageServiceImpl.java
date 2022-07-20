@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import com.biliaryatresia.entity.Image;
-import com.biliaryatresia.mapper.ImageMapper;
+import com.biliaryatresia.entity.ImageLog;
+import com.biliaryatresia.mapper.ImageLogMapper;
 import com.biliaryatresia.service.ImageService;
 /**
  * 上传图片;(image)表服务实现类
@@ -16,7 +16,7 @@ import com.biliaryatresia.service.ImageService;
 @Service
 public class ImageServiceImpl implements ImageService{
     @Autowired
-    private ImageMapper imageMapper;
+    private ImageLogMapper imageMapper;
 
     /**
      * 通过ID查询单条数据
@@ -24,7 +24,7 @@ public class ImageServiceImpl implements ImageService{
      * @param imgId 主键
      * @return 实例对象
      */
-    public Image queryById(Integer imgId){
+    public ImageLog queryById(Integer imgId){
         return imageMapper.queryById(imgId);
     }
 
@@ -35,7 +35,7 @@ public class ImageServiceImpl implements ImageService{
      * @param pageRequest 分页对象
      * @return 查询结果
      */
-    public Page<Image> paginQuery(Image image, PageRequest pageRequest){
+    public Page<ImageLog> paginQuery(ImageLog image, PageRequest pageRequest){
         long total = imageMapper.count(image);
         return new PageImpl<>(imageMapper.queryAllByLimit(image, pageRequest), pageRequest, total);
     }
@@ -46,7 +46,7 @@ public class ImageServiceImpl implements ImageService{
      * @param image 实例对象
      * @return 实例对象
      */
-    public Image insert(Image image){
+    public ImageLog insert(ImageLog image){
         imageMapper.insert(image);
         return image;
     }
@@ -57,7 +57,7 @@ public class ImageServiceImpl implements ImageService{
      * @param image 实例对象
      * @return 实例对象
      */
-    public Image update(Image image){
+    public ImageLog update(ImageLog image){
         imageMapper.update(image);
         return queryById(image.getImgId());
     }

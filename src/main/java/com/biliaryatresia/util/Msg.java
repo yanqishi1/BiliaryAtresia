@@ -6,11 +6,19 @@ public class Msg {
 
     private String msg;
 
+    private Object object;
+
     public Msg(){}
 
     public Msg(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
+    }
+
+    public Msg(Integer code, String msg, Object object) {
+        this.code = code;
+        this.msg = msg;
+        this.object = object;
     }
 
     public Integer getCode() {
@@ -21,7 +29,6 @@ public class Msg {
         this.code = code;
     }
 
-
     public String getMsg() {
         return msg;
     }
@@ -30,4 +37,20 @@ public class Msg {
         this.msg = msg;
     }
 
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
+
+    @Override
+    public String toString() {
+        return "Msg{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", object=" + object +
+                '}';
+    }
 }

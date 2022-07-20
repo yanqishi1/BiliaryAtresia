@@ -8,4 +8,6 @@ public interface AccountService {
     public Msg login(String tel, String password, HttpSession session);
 
     public Msg register(String tel, String password);
+
+    Msg getRecord(Integer pid);
 }

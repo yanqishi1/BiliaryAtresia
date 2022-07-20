@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.biliaryatresia.entity.Image;
+import com.biliaryatresia.entity.ImageLog;
 import com.biliaryatresia.service.ImageService;
 
 /**
@@ -30,7 +30,7 @@ public class ImageController{
      */
     @ApiOperation("通过ID查询单条数据")
     @GetMapping("{imgid}")
-    public ResponseEntity<Image> queryById(Integer imgId){
+    public ResponseEntity<ImageLog> queryById(Integer imgId){
         return ResponseEntity.ok(imageService.queryById(imgId));
     }
 
@@ -43,7 +43,7 @@ public class ImageController{
      */
     @ApiOperation("分页查询")
     @GetMapping
-    public ResponseEntity<Page<Image>> paginQuery(Image image, PageRequest pageRequest){
+    public ResponseEntity<Page<ImageLog>> paginQuery(ImageLog image, PageRequest pageRequest){
         return ResponseEntity.ok(imageService.paginQuery(image, pageRequest));
     }
 
@@ -55,7 +55,7 @@ public class ImageController{
      */
     @ApiOperation("新增数据")
     @PostMapping
-    public ResponseEntity<Image> add(Image image){
+    public ResponseEntity<ImageLog> add(ImageLog image){
         return ResponseEntity.ok(imageService.insert(image));
     }
 
@@ -67,7 +67,7 @@ public class ImageController{
      */
     @ApiOperation("更新数据")
     @PutMapping
-    public ResponseEntity<Image> edit(Image image){
+    public ResponseEntity<ImageLog> edit(ImageLog image){
         return ResponseEntity.ok(imageService.update(image));
     }
 

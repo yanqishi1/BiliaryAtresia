@@ -6,7 +6,7 @@ CREATE TABLE patient(
     p_tel VARCHAR(32)    COMMENT '家长电话号码' ,
     p_date DATETIME    COMMENT '创建时间' ,
     p_wechat VARCHAR(255)    COMMENT '家长微信' ,
-    p_birthday VARCHAR(255)    COMMENT '生日' ,
+    p_birthday DATETIME    COMMENT '生日' ,
     p_gender VARCHAR(32)    COMMENT '性别' ,
     p_weight DECIMAL(24,6)    COMMENT '体重' ,
     p_eat VARCHAR(32)    COMMENT '喂养方式;母乳/奶粉/其他' ,
@@ -52,17 +52,17 @@ CREATE TABLE dept(
     PRIMARY KEY (dept_id)
 )  COMMENT = '科室';
 
-DROP TABLE IF EXISTS image;
-CREATE TABLE image(
-    img_id INT NOT NULL AUTO_INCREMENT  COMMENT '图片id' ,
-    p_id INT    COMMENT '病人id' ,
-    img_date DATETIME    COMMENT '上传时间' ,
-    img_dir VARCHAR(900)    COMMENT '图片保存路径' ,
-    detect_result VARCHAR(255)    COMMENT '算法识别结果' ,
-    doc_result INT    COMMENT '医生判别结果;对机器识别结果进行修正' ,
-    doc_id INT    COMMENT '医生id;纠正识别结果的医生id' ,
-    img_color VARCHAR(32)    COMMENT '患者自我辨别颜色;患者自我辨别颜色' ,
-    PRIMARY KEY (img_id)
+DROP TABLE IF EXISTS imagelog;
+CREATE TABLE imagelog(
+ img_id INT NOT NULL AUTO_INCREMENT  COMMENT '图片id' ,
+ p_id INT    COMMENT '病人id' ,
+ img_date DATETIME    COMMENT '上传时间' ,
+ img_dir VARCHAR(900)    COMMENT '图片保存路径' ,
+ detect_result VARCHAR(255)    COMMENT '算法识别结果' ,
+ doc_result INT    COMMENT '医生判别结果;对机器识别结果进行修正' ,
+ doc_id INT    COMMENT '医生id;纠正识别结果的医生id' ,
+ img_color VARCHAR(32)    COMMENT '患者自我辨别颜色;患者自我辨别颜色' ,
+ PRIMARY KEY (img_id)
 )  COMMENT = '上传图片';
 
 DROP TABLE IF EXISTS prescription;

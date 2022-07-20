@@ -14,7 +14,7 @@ import java.util.Date;
  */
 @ApiModel(value = "上传图片",description = "")
 @Table(name="image")
-public class Image implements Serializable,Cloneable{
+public class ImageLog implements Serializable,Cloneable{
     /** 图片id */
     @Id
     @GeneratedValue

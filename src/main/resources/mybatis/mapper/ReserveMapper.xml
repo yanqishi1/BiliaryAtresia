@@ -19,6 +19,15 @@
         where r_id = #{rId}
     </select>
 
+    <select id="queryByPid" resultMap="ReserveMap">
+        select
+            p_id,doc_name,r_meeting_date
+        from reserve,doctor
+        where reserve.doc_id = doctor.doc_id
+        and reserve.p_id = #{pid}
+        and r_state=3
+    </select>
+
     <!--分页查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ReserveMap">
         select
