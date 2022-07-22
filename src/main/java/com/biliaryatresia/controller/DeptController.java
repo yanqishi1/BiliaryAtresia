@@ -12,7 +12,7 @@ import com.biliaryatresia.service.DeptService;
 
 /**
  * 科室;(dept)表控制层
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Api(tags = "科室对象功能接口")

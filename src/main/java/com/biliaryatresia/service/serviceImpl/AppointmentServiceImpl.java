@@ -20,7 +20,7 @@ import java.util.*;
 
 /**
  * 挂号查询;(appointment)表服务实现类
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-18
  */
 @Service

@@ -7,7 +7,7 @@ import org.springframework.data.domain.PageRequest;
 
 /**
  * 医生;(doctor)表服务接口
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 public interface DoctorService{

@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 
 /**
  * 挂号;(reserve)表服务接口
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 public interface ReserveService{

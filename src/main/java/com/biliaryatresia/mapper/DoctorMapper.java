@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 
 /**
  * 医生;(doctor)表数据库访问层
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Mapper

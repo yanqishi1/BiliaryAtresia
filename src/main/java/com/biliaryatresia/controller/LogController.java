@@ -12,7 +12,7 @@ import com.biliaryatresia.service.LogService;
 
 /**
  * 日志管理;(Log)表控制层
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Api(tags = "日志管理对象功能接口")

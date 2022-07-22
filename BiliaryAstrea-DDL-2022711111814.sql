@@ -7,7 +7,7 @@ CREATE TABLE patient(
     p_date DATETIME    COMMENT '创建时间' ,
     p_wechat VARCHAR(255)    COMMENT '家长微信' ,
     p_birthday DATETIME    COMMENT '生日' ,
-    p_gender VARCHAR(32)    COMMENT '性别' ,
+    p_gender VARCHAR(255)    COMMENT '性别;男 女' ,
     p_weight DECIMAL(24,6)    COMMENT '体重' ,
     p_eat VARCHAR(32)    COMMENT '喂养方式;母乳/奶粉/其他' ,
     PRIMARY KEY (p_id)

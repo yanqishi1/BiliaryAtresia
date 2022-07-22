@@ -6,7 +6,7 @@ import com.biliaryatresia.entity.Admin;
 
 /**
  * 管理员;(Admin)表服务接口
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 public interface AdminService{

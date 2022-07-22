@@ -10,7 +10,7 @@ import com.biliaryatresia.mapper.ImageLogMapper;
 import com.biliaryatresia.service.ImageService;
 /**
  * 上传图片;(image)表服务实现类
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Service

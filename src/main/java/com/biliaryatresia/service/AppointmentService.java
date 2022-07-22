@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * 挂号查询;(appointment)表服务接口
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-18
  */
 public interface AppointmentService{

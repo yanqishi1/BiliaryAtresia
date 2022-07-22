@@ -2,21 +2,19 @@ package com.biliaryatresia.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import javax.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 患者;
- * @author : GyberPunk
- * @date : 2022-7-11
+ * @author : yanqishi1
+ * @date : 2022-7-22
  */
 @ApiModel(value = "患者",description = "")
-@Table(name="patient")
 public class Patient implements Serializable,Cloneable{
     /** 病人id */
-    @Id
-    @GeneratedValue
     @ApiModelProperty(name = "病人id",notes = "")
     private Integer pId ;
     /** 病人姓名 */
@@ -35,10 +33,11 @@ public class Patient implements Serializable,Cloneable{
     @ApiModelProperty(name = "家长微信",notes = "")
     private String pWechat ;
     /** 生日 */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(name = "生日",notes = "")
-    private String pBirthday ;
-    /** 性别 */
-    @ApiModelProperty(name = "性别",notes = "")
+    private Date pBirthday ;
+    /** 性别;男 女 */
+    @ApiModelProperty(name = "性别",notes = "男 女")
     private String pGender ;
     /** 体重 */
     @ApiModelProperty(name = "体重",notes = "")
@@ -96,18 +95,18 @@ public class Patient implements Serializable,Cloneable{
         this.pWechat=pWechat;
     }
     /** 生日 */
-    public String getPBirthday(){
+    public Date getPBirthday(){
         return this.pBirthday;
     }
     /** 生日 */
-    public void setPBirthday(String pBirthday){
+    public void setPBirthday(Date pBirthday){
         this.pBirthday=pBirthday;
     }
-    /** 性别 */
+    /** 性别;男 女 */
     public String getPGender(){
         return this.pGender;
     }
-    /** 性别 */
+    /** 性别;男 女 */
     public void setPGender(String pGender){
         this.pGender=pGender;
     }

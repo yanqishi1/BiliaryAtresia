@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 医生;(doctor)表控制层
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Api(tags = "医生对象功能接口")

@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 
 /**
  * 挂号查询;(appointment)表数据库访问层
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-18
  */
 @Mapper

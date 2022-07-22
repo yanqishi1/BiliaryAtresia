@@ -10,7 +10,7 @@ import com.biliaryatresia.mapper.LogMapper;
 import com.biliaryatresia.service.LogService;
 /**
  * 日志管理;(Log)表服务实现类
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Service

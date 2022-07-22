@@ -12,7 +12,7 @@ import com.biliaryatresia.service.AdminService;
 
 /**
  * 管理员;(Admin)表控制层
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Api(tags = "管理员对象功能接口")

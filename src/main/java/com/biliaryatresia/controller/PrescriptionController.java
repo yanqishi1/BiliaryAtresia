@@ -12,7 +12,7 @@ import com.biliaryatresia.service.PrescriptionService;
 
 /**
  * 处方;(prescription)表控制层
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Api(tags = "处方对象功能接口")

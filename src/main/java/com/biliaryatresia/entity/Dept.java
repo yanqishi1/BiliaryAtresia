@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * 科室;
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @ApiModel(value = "科室",description = "")

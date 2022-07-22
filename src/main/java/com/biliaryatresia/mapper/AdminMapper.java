@@ -8,7 +8,7 @@ import com.biliaryatresia.entity.Admin;
 
 /**
  * 管理员;(Admin)表数据库访问层
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Mapper

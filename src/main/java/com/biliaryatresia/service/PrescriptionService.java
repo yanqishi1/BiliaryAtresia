@@ -6,7 +6,7 @@ import com.biliaryatresia.entity.Prescription;
 
 /**
  * 处方;(prescription)表服务接口
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 public interface PrescriptionService{

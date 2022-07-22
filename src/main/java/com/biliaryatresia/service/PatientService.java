@@ -1,6 +1,7 @@
 package com.biliaryatresia.service;
 
 import com.biliaryatresia.entity.Appointment;
+import com.biliaryatresia.util.Msg;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import com.biliaryatresia.entity.Patient;
@@ -8,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 
 /**
  * 患者;(patient)表服务接口
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 public interface PatientService{
@@ -40,7 +41,7 @@ public interface PatientService{
      * @param patient 实例对象
      * @return 实例对象
      */
-    Patient update(Patient patient);
+    Msg update(Patient patient);
     /**
      * 通过主键删除数据
      *

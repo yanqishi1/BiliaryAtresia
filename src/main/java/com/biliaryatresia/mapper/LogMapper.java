@@ -8,7 +8,7 @@ import com.biliaryatresia.entity.Log;
 
 /**
  * 日志管理;(Log)表数据库访问层
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Mapper

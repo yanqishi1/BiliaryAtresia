@@ -1,5 +1,6 @@
 package com.biliaryatresia.service.impl;
 
+import com.biliaryatresia.util.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
@@ -8,9 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import com.biliaryatresia.entity.Patient;
 import com.biliaryatresia.mapper.PatientMapper;
 import com.biliaryatresia.service.PatientService;
+
+import java.util.Date;
+
 /**
  * 患者;(patient)表服务实现类
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Service
@@ -57,9 +61,22 @@ public class PatientServiceImpl implements PatientService{
      * @param patient 实例对象
      * @return 实例对象
      */
-    public Patient update(Patient patient){
-        patientMapper.update(patient);
-        return queryById(patient.getPId());
+    public Msg update(Patient patient){
+        Msg msg = new Msg();
+        try {
+            patientMapper.update(patient);
+            patient = queryById(patient.getPId());
+            if(patient!=null){
+                patient.setPPassword(null);
+                msg.setObject(patient);
+                msg.setCode(200);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg.setMsg("update error");
+            msg.setCode(500);
+        }
+        return msg;
     }
 
     /**

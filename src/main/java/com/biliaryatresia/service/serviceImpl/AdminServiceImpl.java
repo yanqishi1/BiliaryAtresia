@@ -10,7 +10,7 @@ import com.biliaryatresia.mapper.AdminMapper;
 import com.biliaryatresia.service.AdminService;
 /**
  * 管理员;(Admin)表服务实现类
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Service

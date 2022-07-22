@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * 患者;(patient)表控制层
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Api(tags = "患者对象功能接口")
@@ -46,9 +46,6 @@ public class PatientController{
     @ApiOperation("检测接口")
     @PostMapping("/detect")
     public Msg detectBA(MultipartFile file, HttpSession session){
-//        Patient patient = new Patient();
-//        patient.setPId(9);
-//        return detectService.detectBA(file, patient);
         Patient patient = (Patient) session.getAttribute("patient");
         if(patient==null){
             return new Msg(501, "No patient or Not login");
@@ -72,6 +69,14 @@ public class PatientController{
             return reserveService.reserve(name, birthday, sex, date, patient, doctorId);
         }
     }
+
+    @ResponseBody
+    @ApiOperation("修改个人信息")
+    @PostMapping("/saveprofile")
+    public Msg editProfile(Patient paitent){
+        return patientService.update(paitent);
+    }
+
     @ResponseBody
     @ApiOperation("根据时间查询可以挂号的医生")
     @PostMapping("/getdoctors")
@@ -122,11 +127,11 @@ public class PatientController{
      * @param patient 实例对象
      * @return 实例对象
      */
-    @ApiOperation("更新数据")
-    @PutMapping
-    public ResponseEntity<Patient> edit(Patient patient){
-        return ResponseEntity.ok(patientService.update(patient));
-    }
+//    @ApiOperation("更新数据")
+//    @PutMapping
+//    public ResponseEntity<Patient> edit(Patient patient){
+//        return ResponseEntity.ok(patientService.update(patient));
+//    }
 
     /**
      * 通过主键删除数据

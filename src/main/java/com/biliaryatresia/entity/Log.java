@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  * 日志管理;
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @ApiModel(value = "日志管理",description = "")

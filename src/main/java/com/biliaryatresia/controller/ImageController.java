@@ -12,7 +12,7 @@ import com.biliaryatresia.service.ImageService;
 
 /**
  * 上传图片;(image)表控制层
- * @author : GyberPunk
+ * @author : yanqishi1
  * @date : 2022-7-11
  */
 @Api(tags = "上传图片对象功能接口")
